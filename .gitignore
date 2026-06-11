@@ -1,0 +1,12 @@
+# Runtime / session state
+.pi/messenger/
+
+# Environment / secrets
+.env
+.env.local
+
+# macOS
+.DS_Store
+
+# Node (future-proof)
+node_modules/
