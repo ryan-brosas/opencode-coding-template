@@ -1,5 +1,5 @@
-# Runtime / session state
-.pi/messenger/
+# Runtime / session state (Pi — not part of this OpenCode template)
+.pi/
 
 # Environment / secrets
 .env
