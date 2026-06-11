@@ -3,38 +3,39 @@
   "agent": {
     "build": {
       "description": "Primary development agent with full codebase access",
-      "model": "github-copilot/gpt-5.5"
+      "model": "makora/glm-5.1-fp8"
     },
     "compaction": {
-      "description": "Session summarizer for context continuity across compactions"
+      "description": "Session summarizer for context continuity across compactions",
+      "model": "makora/qwen3.6-27b-nvfp4"
     },
     "explore": {
       "description": "Fast codebase search specialist",
-      "model": "github-copilot/gpt-5.4-mini"
+      "model": "makora/qwen3.6-27b-nvfp4"
     },
     "general": {
       "description": "General-purpose subagent for fast, well-defined tasks; delegates complexity quickly",
-      "model": "github-copilot/gpt-5.3-codex"
+      "model": "makora/qwen3.6-27b-nvfp4"
     },
     "painter": {
       "description": "Image generation and editing specialist using Gemini 3 Pro Image. Use for creating UI mockups, app icons, hero images, visual assets, and editing/redacting existing images",
-      "model": "proxypal/gemini-3.1-flash-image"
+      "model": "makora/qwen3.6-27b-nvfp4"
     },
     "plan": {
       "description": "Primary planning agent for architecture and multi-phase execution",
-      "model": "github-copilot/gpt-5.4"
+      "model": "makora/deepseek-v4-pro"
     },
     "review": {
       "description": "Code review, debugging, and security audit specialist",
-      "model": "github-copilot/gpt-5.3-codex"
+      "model": "makora/qwen3.6-27b-nvfp4"
     },
     "scout": {
       "description": "External research specialist for library docs and patterns",
-      "model": "github-copilot/gpt-5.4"
+      "model": "makora/qwen3.6-27b-nvfp4"
     },
     "vision": {
       "description": "Visual content specialist for multimodal analysis and UI/UX guidance",
-      "model": "github-copilot/gemini-3.1-pro-preview"
+      "model": "makora/qwen3.6-27b-nvfp4"
     }
   },
   "autoupdate": false,
@@ -64,30 +65,10 @@
     },
     "oxfmt": {
       "command": ["npx", "oxfmt", "--write", "$FILE"],
-      "extensions": [
-        ".js",
-        ".jsx",
-        ".ts",
-        ".tsx",
-        ".json",
-        ".jsonc",
-        ".html",
-        ".css",
-        ".scss",
-        ".sass",
-        ".md",
-        ".mdx",
-        ".yaml",
-        ".yml"
-      ]
+      "extensions": [".js", ".jsx", ".ts", ".tsx", ".json", ".jsonc", ".html", ".css", ".scss", ".sass", ".md", ".mdx", ".yaml", ".yml"]
     }
   },
-  "instructions": [
-    ".opencode/memory/project/user.md",
-    ".opencode/memory/project/tech-stack.md",
-    ".opencode/memory/project/project.md",
-    ".opencode/context/git-context.md"
-  ],
+  "instructions": [".opencode/memory/project/user.md", ".opencode/memory/project/tech-stack.md", ".opencode/memory/project/project.md", ".opencode/context/git-context.md"],
   "keybinds": {
     "leader": "ctrl+x",
     "session_parent": "up"
@@ -115,7 +96,7 @@
       "type": "local"
     }
   },
-  "model": "github-copilot/gpt-5.5",
+  "model": "makora/glm-5.1-fp8",
   "permission": {
     "bash": {
       "*": "allow",
@@ -158,557 +139,8 @@
       "*token*": "deny"
     }
   },
-  "plugin": [
-    "@tarquinen/opencode-dcp@latest",
-    "@franlol/opencode-md-table-formatter@0.0.3",
-    "openslimedit@latest",
-    "opencodex-fast@latest"
-  ],
+  "plugin": ["@tarquinen/opencode-dcp@latest", "@franlol/opencode-md-table-formatter@0.0.3", "openslimedit@latest", "opencodex-fast@latest"],
   "provider": {
-    "github-copilot": {
-      "models": {
-        "claude-haiku-4.5": {
-          "attachment": true,
-          "limit": {
-            "context": 216000,
-            "output": 32000
-          },
-          "options": {
-            "reasoningEffort": "high"
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true,
-          "variants": {
-            "high": {
-              "options": {
-                "reasoningEffort": "high"
-              }
-            },
-            "low": {
-              "options": {
-                "reasoningEffort": "low"
-              }
-            },
-            "medium": {
-              "options": {
-                "reasoningEffort": "medium"
-              }
-            }
-          }
-        },
-        "claude-opus-4.5": {
-          "attachment": true,
-          "limit": {
-            "context": 216000,
-            "output": 32000
-          },
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true,
-          "variants": {
-            "high": {
-              "options": {
-                "reasoningEffort": "high"
-              }
-            },
-            "low": {
-              "options": {
-                "reasoningEffort": "low"
-              }
-            },
-            "medium": {
-              "options": {
-                "reasoningEffort": "medium"
-              }
-            }
-          }
-        },
-        "claude-opus-4.6": {
-          "attachment": true,
-          "limit": {
-            "context": 216000,
-            "output": 64000
-          },
-          "options": {
-            "reasoningEffort": "high"
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true,
-          "variants": {
-            "high": {
-              "options": {
-                "reasoningEffort": "high"
-              }
-            },
-            "low": {
-              "options": {
-                "reasoningEffort": "low"
-              }
-            },
-            "medium": {
-              "options": {
-                "reasoningEffort": "medium"
-              }
-            }
-          }
-        },
-        "claude-sonnet-4.5": {
-          "attachment": true,
-          "limit": {
-            "context": 216000,
-            "output": 32000
-          },
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true,
-          "variants": {
-            "high": {
-              "options": {
-                "reasoningEffort": "high"
-              }
-            },
-            "low": {
-              "options": {
-                "reasoningEffort": "low"
-              }
-            },
-            "medium": {
-              "options": {
-                "reasoningEffort": "medium"
-              }
-            }
-          }
-        },
-        "claude-sonnet-4.6": {
-          "attachment": true,
-          "limit": {
-            "context": 216000,
-            "output": 32000
-          },
-          "options": {
-            "reasoningEffort": "high"
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true,
-          "variants": {
-            "high": {
-              "options": {
-                "reasoningEffort": "high"
-              }
-            },
-            "low": {
-              "options": {
-                "reasoningEffort": "low"
-              }
-            },
-            "medium": {
-              "options": {
-                "reasoningEffort": "medium"
-              }
-            }
-          }
-        },
-        "gemini-2.5-pro": {
-          "attachment": true,
-          "limit": {
-            "context": 173000,
-            "output": 64000
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true
-        },
-        "gemini-3-flash-preview": {
-          "attachment": true,
-          "limit": {
-            "context": 173000,
-            "output": 64000
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true
-        },
-        "gemini-3-pro-preview": {
-          "attachment": true,
-          "limit": {
-            "context": 173000,
-            "output": 64000
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true
-        },
-        "gemini-3.1-pro-preview": {
-          "attachment": true,
-          "limit": {
-            "context": 173000,
-            "output": 64000
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true
-        },
-        "gpt-5.2": {
-          "attachment": true,
-          "limit": {
-            "context": 192000,
-            "output": 128000
-          },
-          "options": {
-            "reasoningEffort": "medium",
-            "reasoningSummary": "auto",
-            "textVerbosity": "medium"
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true,
-          "variants": {
-            "xhigh": {
-              "include": ["reasoning.encrypted_content"],
-              "reasoningEffort": "xhigh",
-              "reasoningSummary": "auto"
-            },
-            "high": {
-              "include": ["reasoning.encrypted_content"],
-              "reasoningEffort": "high",
-              "reasoningSummary": "auto"
-            },
-            "low": {
-              "reasoningEffort": "low",
-              "reasoningSummary": "auto"
-            },
-            "medium": {
-              "reasoningEffort": "medium",
-              "reasoningSummary": "auto"
-            }
-          }
-        },
-        "gpt-5.2-codex": {
-          "attachment": true,
-          "limit": {
-            "context": 400000,
-            "input": 400000,
-            "output": 128000
-          },
-          "options": {
-            "reasoningEffort": "medium",
-            "reasoningSummary": "auto",
-            "textVerbosity": "medium"
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true,
-          "variants": {
-            "fast": {
-              "disabled": true
-            },
-            "xhigh": {
-              "include": ["reasoning.encrypted_content"],
-              "reasoningEffort": "xhigh",
-              "reasoningSummary": "auto"
-            },
-            "high": {
-              "include": ["reasoning.encrypted_content"],
-              "reasoningEffort": "high",
-              "reasoningSummary": "auto",
-              "textVerbosity": "medium"
-            },
-            "low": {
-              "reasoningEffort": "low",
-              "reasoningSummary": "auto"
-            },
-            "medium": {
-              "reasoningEffort": "medium",
-              "reasoningSummary": "auto",
-              "textVerbosity": "medium"
-            }
-          }
-        },
-        "gpt-5.3-codex": {
-          "attachment": true,
-          "limit": {
-            "context": 400000,
-            "input": 400000,
-            "output": 128000
-          },
-          "name": "Gpt 5 3 Codex",
-          "options": {
-            "reasoningEffort": "medium",
-            "reasoningSummary": "auto",
-            "textVerbosity": "medium"
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true,
-          "variants": {
-            "fast": {
-              "disabled": true
-            },
-            "xhigh": {
-              "include": ["reasoning.encrypted_content"],
-              "reasoningEffort": "xhigh",
-              "reasoningSummary": "auto"
-            },
-            "high": {
-              "include": ["reasoning.encrypted_content"],
-              "reasoningEffort": "high",
-              "reasoningSummary": "auto",
-              "textVerbosity": "medium"
-            },
-            "low": {
-              "reasoningEffort": "low",
-              "reasoningSummary": "auto"
-            },
-            "medium": {
-              "reasoningEffort": "medium",
-              "reasoningSummary": "auto",
-              "textVerbosity": "medium"
-            }
-          }
-        },
-        "gpt-5.4-mini": {
-          "attachment": true,
-          "limit": {
-            "context": 400000,
-            "input": 400000,
-            "output": 128000
-          },
-          "modalities": {
-            "input": ["text", "image"],
-            "output": ["text"]
-          },
-          "options": {
-            "reasoningEffort": "low",
-            "reasoningSummary": "auto",
-            "textVerbosity": "medium"
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true,
-          "variants": {
-            "xhigh": {
-              "include": ["reasoning.encrypted_content"],
-              "reasoningEffort": "xhigh",
-              "reasoningSummary": "auto"
-            },
-            "high": {
-              "include": ["reasoning.encrypted_content"],
-              "reasoningEffort": "high",
-              "reasoningSummary": "auto"
-            },
-            "low": {
-              "reasoningEffort": "low",
-              "reasoningSummary": "auto"
-            },
-            "medium": {
-              "reasoningEffort": "medium",
-              "reasoningSummary": "auto"
-            }
-          }
-        },
-        "gpt-5.4": {
-          "attachment": true,
-          "limit": {
-            "context": 400000,
-            "input": 400000,
-            "output": 128000
-          },
-          "modalities": {
-            "input": ["text", "image"],
-            "output": ["text"]
-          },
-          "options": {
-            "reasoningEffort": "low",
-            "reasoningSummary": "auto",
-            "textVerbosity": "medium"
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true,
-          "variants": {
-            "xhigh": {
-              "include": ["reasoning.encrypted_content"],
-              "reasoningEffort": "xhigh",
-              "reasoningSummary": "auto"
-            },
-            "high": {
-              "include": ["reasoning.encrypted_content"],
-              "reasoningEffort": "high",
-              "reasoningSummary": "auto"
-            },
-            "low": {
-              "reasoningEffort": "low",
-              "reasoningSummary": "auto"
-            },
-            "medium": {
-              "reasoningEffort": "medium",
-              "reasoningSummary": "auto"
-            }
-          }
-        },
-        "gpt-5.5": {
-          "name": "GPT-5.5",
-          "attachment": true,
-          "limit": {
-            "context": 400000,
-            "input": 400000,
-            "output": 128000
-          },
-          "modalities": {
-            "input": ["text", "image"],
-            "output": ["text"]
-          },
-          "options": {
-            "reasoningEffort": "medium",
-            "reasoningSummary": "auto",
-            "textVerbosity": "medium"
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true,
-          "variants": {
-            "xhigh": {
-              "include": ["reasoning.encrypted_content"],
-              "reasoningEffort": "xhigh",
-              "reasoningSummary": "auto"
-            },
-            "high": {
-              "include": ["reasoning.encrypted_content"],
-              "reasoningEffort": "high",
-              "reasoningSummary": "auto"
-            },
-            "low": {
-              "reasoningEffort": "low",
-              "reasoningSummary": "auto"
-            },
-            "medium": {
-              "reasoningEffort": "medium",
-              "reasoningSummary": "auto"
-            }
-          }
-        },
-        "grok-code-fast": {
-          "attachment": true,
-          "limit": {
-            "context": 173000,
-            "output": 64000
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true
-        },
-        "grok-code-fast-1": {
-          "attachment": true,
-          "limit": {
-            "context": 173000,
-            "output": 64000
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true
-        },
-        "minimax-m2.5": {
-          "attachment": true,
-          "limit": {
-            "context": 204800,
-            "output": 16384
-          },
-          "options": {
-            "temperature": 1,
-            "top_k": 40,
-            "top_p": 0.95
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true
-        }
-      },
-      "options": {
-        "timeout": 600000
-      }
-    },
-    "kimi-for-coding": {
-      "models": {
-        "k2p5": {
-          "limit": {
-            "context": 262144,
-            "output": 32768
-          },
-          "options": {
-            "interleaved": {
-              "field": "reasoning_content"
-            },
-            "thinking": {
-              "budgetTokens": 8192,
-              "reasoning_effort": "high",
-              "type": "enabled"
-            }
-          },
-          "reasoning": true,
-          "temperature": true,
-          "tool_call": true,
-          "variants": {
-            "high": {
-              "interleaved": {
-                "field": "reasoning_content"
-              },
-              "options": {
-                "reasoning_effort": "high",
-                "thinkingBudget": 16384,
-                "type": "enabled"
-              }
-            },
-            "max": {
-              "interleaved": {
-                "field": "reasoning_content"
-              },
-              "options": {
-                "reasoning_effort": "high",
-                "thinkingBudget": 32768,
-                "type": "enabled"
-              }
-            }
-          }
-        }
-      }
-    },
-    "modal": {
-      "models": {
-        "zai-org/GLM-5-FP8": {
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "GLM-5",
-          "options": {
-            "maxOutputTokens": 131072,
-            "reasoningEffort": "high",
-            "reasoningSummary": "true",
-            "temperature": 1,
-            "thinking": {
-              "type": "enabled"
-            },
-            "top_k": 40,
-            "top_p": 0.95
-          },
-          "reasoning": true
-        }
-      },
-      "name": "Modal",
-      "options": {
-        "apiKey": "{env:MODAL_API_KEY}",
-        "baseURL": "https://api.us-west-2.modal.direct/v1"
-      }
-    },
     "openai": {
       "models": {
         "gpt-5.2": {
@@ -816,333 +248,141 @@
         }
       }
     },
-    "opencode": {
+    "makora": {
+      "name": "Makora",
+      "options": {
+        "apiKey": "{env:MAKORA_OPTIMIZE_TOKEN}",
+        "baseURL": "https://inference.makora.com/v1",
+        "timeout": 600000
+      },
       "models": {
-        "big-pickle": {
-          "options": {
-            "reasoningEffort": "high",
-            "temperature": 1,
-            "top_k": 40,
-            "top_p": 0.95
-          },
-          "reasoning": true
-        }
-      }
-    },
-    "proxypal": {
-      "models": {
-        "claude-opus-4.6": {
-          "limit": {
-            "context": 200000,
-            "output": 64000
-          },
+        "deepseek-v4-flash": {
+          "id": "deepseek-ai/DeepSeek-V4-Flash",
+          "name": "DeepSeek V4 Flash",
+          "attachment": false,
+          "reasoning": true,
+          "tool_call": true,
           "modalities": {
-            "input": ["text", "image", "pdf"],
+            "input": ["text"],
             "output": ["text"]
           },
-          "name": "Claude Opus 4 6"
+          "limit": {
+            "context": 1048576,
+            "output": 1048576
+          }
         },
-        "coder-model": {
+        "deepseek-v4-pro": {
+          "id": "deepseek-ai/DeepSeek-V4-Pro",
+          "name": "DeepSeek V4 Pro",
+          "attachment": false,
+          "reasoning": true,
+          "tool_call": true,
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 1048576,
+            "output": 1048576
+          }
+        },
+        "glm-5.1-fp8": {
+          "id": "zai-org/GLM-5.1-FP8",
+          "name": "GLM-5.1 FP8",
+          "attachment": false,
+          "reasoning": true,
+          "tool_call": true,
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 131072,
+            "output": 32768
+          }
+        },
+        "gpt-oss-120b": {
+          "id": "openai/GPT-OSS-120B",
+          "name": "GPT OSS 120B",
+          "attachment": false,
+          "reasoning": true,
+          "tool_call": true,
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 131072,
+            "output": 32768
+          }
+        },
+        "kimi-k2.6-nvfp4": {
+          "id": "nvidia/Kimi-K2.6-NVFP4",
+          "name": "Kimi K2.6 NVFP4",
+          "attachment": false,
+          "reasoning": true,
+          "tool_call": true,
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
           "limit": {
             "context": 262144,
-            "output": 65536
-          },
-          "name": "Coder Model"
-        },
-        "glm-4.5": {
-          "limit": {
-            "context": 128000,
-            "output": 16384
-          },
-          "name": "Glm 4 5"
-        },
-        "glm-4.5-air": {
-          "limit": {
-            "context": 128000,
-            "output": 16384
-          },
-          "name": "Glm 4 5 Air"
-        },
-        "glm-4.6": {
-          "limit": {
-            "context": 128000,
-            "output": 16384
-          },
-          "name": "Glm 4 6"
-        },
-        "glm-4.7": {
-          "limit": {
-            "context": 128000,
-            "output": 16384
-          },
-          "name": "Glm 4 7"
-        },
-        "gpt-5": {
-          "limit": {
-            "context": 400000,
             "output": 32768
-          },
+          }
+        },
+        "llama-3.3-70b-instruct-fp8": {
+          "id": "meta-llama/Llama-3.3-70B-Instruct-FP8",
+          "name": "Llama 3.3 70B Instruct FP8",
+          "attachment": false,
+          "reasoning": false,
+          "tool_call": true,
           "modalities": {
-            "input": ["text", "image", "pdf"],
+            "input": ["text"],
             "output": ["text"]
           },
-          "name": "Gpt 5",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
-        },
-        "gpt-5-codex": {
           "limit": {
-            "context": 400000,
+            "context": 131072,
             "output": 32768
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "Gpt 5 Codex",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
+          }
         },
-        "gpt-5-codex-mini": {
-          "limit": {
-            "context": 400000,
-            "output": 32768
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "Gpt 5 Codex Mini",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
-        },
-        "gpt-5.1": {
-          "limit": {
-            "context": 400000,
-            "output": 32768
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "Gpt 5 1",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
-        },
-        "gpt-5.1-codex": {
-          "limit": {
-            "context": 400000,
-            "output": 32768
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "Gpt 5 1 Codex",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
-        },
-        "gpt-5.1-codex-max": {
-          "limit": {
-            "context": 400000,
-            "output": 32768
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "Gpt 5 1 Codex Max",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
-        },
-        "gpt-5.1-codex-mini": {
-          "limit": {
-            "context": 400000,
-            "output": 32768
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "Gpt 5 1 Codex Mini",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
-        },
-        "gpt-5.2": {
-          "limit": {
-            "context": 400000,
-            "output": 32768
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "Gpt 5 2",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
-        },
-        "gpt-5.2-codex": {
-          "limit": {
-            "context": 400000,
-            "output": 32768
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "Gpt 5 2 Codex",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
-        },
-        "gpt-5.3-codex": {
-          "limit": {
-            "context": 400000,
-            "output": 32768
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "Gpt 5 3 Codex",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
-        },
-        "gpt-5.3-codex-spark": {
-          "limit": {
-            "context": 400000,
-            "output": 32768
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "Gpt 5 3 Codex Spark",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
-        },
-        "gpt-5.4": {
-          "limit": {
-            "context": 400000,
-            "output": 128000
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "Gpt 5 4",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
-        },
-        "gpt-5.4-mini": {
-          "limit": {
-            "context": 400000,
-            "output": 32768
-          },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"]
-          },
-          "name": "Gpt 5 4 Mini",
-          "options": {
-            "reasoningEffort": "medium"
-          },
-          "reasoning": true
-        }
-      },
-      "name": "ProxyPal",
-      "npm": "@ai-sdk/anthropic",
-      "options": {
-        "apiKey": "proxypal-local",
-        "baseURL": "http://127.0.0.1:8317/v1",
-        "includeUsage": true
-      }
-    },
-    "zai-coding-plan": {
-      "models": {
-        "glm-4.6": {
-          "limit": {
-            "context": 128000,
-            "output": 16384
-          },
-          "options": {
-            "temperature": 1,
-            "thinking": {
-              "type": "enabled"
-            }
-          },
+        "qwen3.6-27b-nvfp4": {
+          "id": "unsloth/Qwen3.6-27B-NVFP4",
+          "name": "Qwen3.6 27B NVFP4",
+          "attachment": false,
           "reasoning": true,
-          "temperature": true,
-          "tool_call": true
-        },
-        "glm-4.7": {
-          "id": "glm-4.7",
-          "interleaved": true,
+          "tool_call": true,
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
           "limit": {
-            "context": 200000,
-            "output": 128000
-          },
-          "name": "GLM-4.7",
-          "options": {
-            "temperature": 1,
-            "thinking": {
-              "type": "enabled"
-            }
-          },
-          "reasoning": true
+            "context": 262144,
+            "output": 32768
+          }
         },
-        "glm-5": {
-          "name": "GLM-5",
-          "options": {
-            "maxOutputTokens": 131072,
-            "reasoningEffort": "high",
-            "reasoningSummary": "true",
-            "temperature": 1,
-            "thinking": {
-              "type": "enabled"
-            },
-            "top_k": 40,
-            "top_p": 0.95
+        "qwen3.6-35b-a3b-nvfp4": {
+          "id": "unsloth/Qwen3.6-35B-A3B-NVFP4",
+          "name": "Qwen3.6 35B A3B NVFP4",
+          "attachment": false,
+          "reasoning": true,
+          "tool_call": true,
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
           },
-          "reasoning": true
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          }
         }
-      },
-      "name": "Z.AI Coding Plan"
+      }
     }
   },
   "share": "manual",
-  "small_model": "opencode/gpt-5-nano",
+  "small_model": "makora/qwen3.6-27b-nvfp4",
   "watcher": {
-    "ignore": [
-      "node_modules/**",
-      ".git/**",
-      "dist/**",
-      "build/**",
-      "*.log",
-      ".DS_Store"
-    ]
-  }
+    "ignore": ["node_modules/**", ".git/**", "dist/**", "build/**", "*.log", ".DS_Store"]
+  },
+  "enabled_providers": ["openai", "makora"]
 }
