@@ -1,58 +1,80 @@
-# OCK — Pi Coding Template
+# OpenCode Coding Template
 
-A lean, context-free, bloat-free `.pi` system template for [pi coding agent](https://github.com/earendil-works/pi-coding-agent).
+A comprehensive [OpenCode](https://opencode.ai) configuration template with curated agents, skills, commands, and plugins for AI-assisted software development.
 
 ## What's Inside
 
 | Dir | Purpose | Size |
 |---|---|---|
-| `.pi/` | Config, agents, skills, extensions, memory | ~50KB |
-| `.beads/` | SQLite task store (br beads) | ~32KB |
+| `.opencode/` | Agents, commands, 90+ skills, plugins, memory, plans | ~5.8MB |
+| `.beads/` | Task tracking configuration (br beads) | ~1KB |
 
-**Total: <100KB** — vs 64MB with .opencode
+## Agents (9)
+
+| Agent | Model | Use For |
+|---|---|---|
+| **build** | Primary development | Full codebase implementation |
+| **plan** | Architecture planning | Multi-phase execution design |
+| **explore** | Fast search | Codebase navigation |
+| **review** | Code review | Debugging, security audits |
+| **scout** | External research | Library docs and patterns |
+| **general** | Subagent delegation | Fast, well-defined tasks |
+| **vision** | Multimodal analysis | UI/UX guidance |
+| **painter** | Image generation | UI mockups, visual assets |
+| **compaction** | Session summary | Context continuity |
+
+## Commands (20+)
+
+`/ship` · `/verify` · `/compound` · `/create` · `/plan` · `/explore` · `/research` · `/design` · `/iterate` · `/handoff` · `/curate` · `/status` · `/health` · `/pr` · `/review-codebase` · `/ui-review` · `/ui-slop-check` · `/init` · `/init-context` · `/init-user` · `/resume` · `/lfg`
+
+## Skills (90+)
+
+Core development, frontend design, Cloudflare, Supabase, Swift/SwiftUI, React best practices, security hardening, testing, debugging, research, swarm coordination, and more.
+
+## Plugins
+
+- **Memory system** — SQLite-backed project memory with hooks
+- **Copilot provider** — OpenAI-compatible API adapter
+- **Context7 / GrepSearch** — Documentation and code search tools
 
 ## Quick Start
 
 ```bash
-# Copy template into your project
-cp -r /path/to/ock/.pi /your/project/.pi
-cp -r /path/to/ock/.beads /your/project/.beads
+# Clone into your project
+cd your-project
+git clone --depth 1 https://github.com/ryan-brosas/opencode-coding-template.git tmp-ock
+cp -r tmp-ock/.opencode .
+cp -r tmp-ock/.beads .
+rm -rf tmp-ock
 
-# Initialize beads
-cd /your/project && br init
+# Copy environment template
+cp .opencode/.env.example .opencode/.env
+# Edit .env with your API keys
 
-# Start working
-pi-messenger-swarm task create --title "build feature X"
-pi-messenger-swarm task claim task-1
+# Start OpenCode
+opencode
 ```
 
-## Stack
+## Environment Setup
 
-- **br beads** — Task tracking via SQLite (`BR_TASK_STORE=1`)
-- **pi-vcc** — Algorithmic context compaction at 95% (no LLM, zero-cost)
-- **pi-messenger-swarm** — File-based multi-agent coordination
+See `.opencode/.env.example` for required and optional environment variables:
 
-## Agents (5)
+- **Context7** — Library documentation (recommended)
+- **Exa** — Web search and code context (recommended)
+- **Gemini / OpenAI** — Code execution and multimodal features (optional)
+- **Cloudflare** — Deployment features (optional)
 
-| Agent | Tools | Use For |
-|---|---|---|
-| **build** | all | Implementation |
-| **plan** | read + narrow write | Planning |
-| **explore** | read-only | Navigation |
-| **review** | read-only | Code review |
-| **scout** | read-only | Research |
+## Task Tracking (Optional)
 
-## Skills (15)
+This template includes `.beads/` config for [br beads](https://github.com/ryan-brosas/br-beads) task tracking:
 
-`beads` · `swarm-coordination` · `verification-before-completion` · `writing-plans` · `executing-plans` · `structured-edit` · `systematic-debugging` · `context-initialization` · `memory-grounding` · `deep-research` · `playwright` · `frontend-design` · `security-and-hardening` · `skill-creator` · `think`
+```bash
+# Requires br beads installed
+br init
+br create "build feature X"
+br claim 1
+```
 
-## Commands (4)
+## License
 
-`/verify` · `/ship` · `/compound` · `/audit-farm`
-
-## What This Replaces
-
-- `.opencode/` (64MB, 99 skills, 7 agents) → `.pi/` (50KB, 15 skills, 5 agents)
-- JSONL task files → SQLite via br beads
-- No compaction → pi-vcc at 95%
-- No coordination → swarm on project channel
+MIT — use as a starting point for your own OpenCode configuration.
