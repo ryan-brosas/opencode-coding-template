@@ -1,0 +1,8 @@
+# Keep template source files reviewable across platforms.
+*.md text eol=lf
+*.sh text eol=lf
+*.json text eol=lf
+*.ts text eol=lf
+*.js text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf

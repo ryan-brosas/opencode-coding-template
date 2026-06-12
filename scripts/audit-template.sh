@@ -13,6 +13,7 @@ check() {
   fi
 }
 
+check "audit script is multiline shell" bash -c 'test "$(wc -l < scripts/audit-template.sh)" -gt 100 && test "$(sed -n "1p" scripts/audit-template.sh)" = "#!/usr/bin/env bash" && test "$(sed -n "2p" scripts/audit-template.sh)" = "set -euo pipefail"'
 check "root opencode.json exists" test -f opencode.json
 check "root tui.json exists" test -f tui.json
 check "no nested active opencode config" test ! -f .opencode/opencode.json
@@ -20,6 +21,21 @@ check "no nested active tui config" test ! -f .opencode/tui.json
 check "no nested env example" test ! -f .opencode/.env.example
 check "opencode.json parses" bash -c 'python3 -m json.tool opencode.json >/dev/null'
 check "tui.json parses" bash -c 'python3 -m json.tool tui.json >/dev/null'
+check "root JSON is pretty-printed" python3 - <<'PY'
+from pathlib import Path
+import json, sys
+bad=[]
+for name in ('opencode.json', 'tui.json'):
+    path = Path(name)
+    data = json.loads(path.read_text())
+    expected = json.dumps(data, indent=4, ensure_ascii=True) + '\n'
+    actual = path.read_text()
+    if actual != expected:
+        bad.append(name)
+if bad:
+    print('not python -m json.tool formatted: ' + ', '.join(bad), file=sys.stderr)
+    sys.exit(1)
+PY
 
 check "no broad bash allow" bash -c '! python3 - <<"PY"
 import json
