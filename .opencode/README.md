@@ -4,6 +4,7 @@ This directory contains the focused default OpenCode assets that sit beside the 
 
 > Active config lives at the project root: `opencode.json` and `tui.json`.
 > Keep those root files with `.opencode/` when installing the template.
+> Root `opencode.json` explicitly loads `.opencode/AGENTS.md` through `instructions[]`.
 
 ## Layout
 

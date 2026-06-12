@@ -6,7 +6,7 @@ A reusable [OpenCode](https://opencode.ai) project template for AI-assisted soft
 
 | Path | Purpose |
 |---|---|
-| `opencode.json` | Root project config OpenCode loads by default |
+| `opencode.json` | Root project config OpenCode loads by default; explicitly loads `.opencode/AGENTS.md` |
 | `tui.json` | TUI keybindings and display settings |
 | `.env.example` | Minimal environment template |
 | `env.integrations.example` | Optional API keys and MCP integrations |

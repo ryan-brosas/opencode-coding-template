@@ -65,6 +65,12 @@ optional=('tilth','webclaw','figma-mcp-go')
 sys.exit(0 if all(not mcp.get(k,{}).get('enabled', False) for k in optional if k in mcp) else 1)
 PY
 
+check "AGENTS.md is loaded by root config" python3 - <<'PY'
+import json, sys
+instructions=json.load(open('opencode.json')).get('instructions', [])
+sys.exit(0 if '.opencode/AGENTS.md' in instructions else 1)
+PY
+
 check "no ghost /start references in active workflow docs" bash -c 'paths=(.opencode/README.md .opencode/agent .opencode/command); while IFS= read -r f; do paths+=("$f"); done < <(find .opencode/skill -mindepth 2 -maxdepth 2 -name SKILL.md); ! rg -n "/start|start <" "${paths[@]}" >/dev/null'
 
 check "generated plan artifacts not tracked" bash -c '! git ls-files ".opencode/plans/*.md" | grep -v "README.md" | grep -q .'

@@ -115,6 +115,7 @@
     }
   },
   "instructions": [
+    ".opencode/AGENTS.md",
     ".opencode/memory/project/user.md",
     ".opencode/memory/project/tech-stack.md",
     ".opencode/memory/project/project.md",
