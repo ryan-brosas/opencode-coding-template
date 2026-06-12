@@ -3,39 +3,39 @@
   "agent": {
     "build": {
       "description": "Primary development agent with full codebase access",
-      "model": "makora/glm-5.1-fp8"
+      "model": "{env:OPENCODE_MODEL}"
     },
     "compaction": {
       "description": "Session summarizer for context continuity across compactions",
-      "model": "makora/qwen3.6-27b-nvfp4"
+      "model": "{env:OPENCODE_SMALL_MODEL}"
     },
     "explore": {
       "description": "Fast codebase search specialist",
-      "model": "makora/qwen3.6-27b-nvfp4"
+      "model": "{env:OPENCODE_SMALL_MODEL}"
     },
     "general": {
       "description": "General-purpose subagent for fast, well-defined tasks; delegates complexity quickly",
-      "model": "makora/qwen3.6-27b-nvfp4"
+      "model": "{env:OPENCODE_SMALL_MODEL}"
     },
     "painter": {
       "description": "Image generation and editing specialist using Gemini 3 Pro Image. Use for creating UI mockups, app icons, hero images, visual assets, and editing/redacting existing images",
-      "model": "makora/qwen3.6-27b-nvfp4"
+      "model": "{env:OPENCODE_SMALL_MODEL}"
     },
     "plan": {
       "description": "Primary planning agent for architecture and multi-phase execution",
-      "model": "makora/deepseek-v4-pro"
+      "model": "{env:OPENCODE_PLAN_MODEL}"
     },
     "review": {
       "description": "Code review, debugging, and security audit specialist",
-      "model": "makora/qwen3.6-27b-nvfp4"
+      "model": "{env:OPENCODE_SMALL_MODEL}"
     },
     "scout": {
       "description": "External research specialist for library docs and patterns",
-      "model": "makora/qwen3.6-27b-nvfp4"
+      "model": "{env:OPENCODE_SMALL_MODEL}"
     },
     "vision": {
       "description": "Visual content specialist for multimodal analysis and UI/UX guidance",
-      "model": "makora/qwen3.6-27b-nvfp4"
+      "model": "{env:OPENCODE_SMALL_MODEL}"
     }
   },
   "autoupdate": false,
@@ -69,10 +69,6 @@
     }
   },
   "instructions": [".opencode/memory/project/user.md", ".opencode/memory/project/tech-stack.md", ".opencode/memory/project/project.md", ".opencode/context/git-context.md"],
-  "keybinds": {
-    "leader": "ctrl+x",
-    "session_parent": "up"
-  },
   "mcp": {
     "figma-mcp-go": {
       "command": ["npx", "-y", "@vkhanhqui/figma-mcp-go@latest"],
@@ -82,7 +78,7 @@
     },
     "tilth": {
       "command": ["npx", "-y", "tilth", "--mcp", "--edit"],
-      "enabled": true,
+      "enabled": false,
       "environment": {
         "TILTH_THREADS": "8"
       },
@@ -91,36 +87,44 @@
     },
     "webclaw": {
       "command": ["webclaw-mcp"],
-      "enabled": true,
+      "enabled": false,
       "timeout": 120000,
       "type": "local"
     }
   },
-  "model": "makora/glm-5.1-fp8",
+  "model": "{env:OPENCODE_MODEL}",
   "permission": {
     "bash": {
-      "*": "allow",
       "cat *": "allow",
+      "find *": "allow",
       "git branch *": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "git status*": "allow",
+      "grep *": "allow",
+      "ls *": "allow",
+      "rg *": "allow",
+      "npm run build": "allow",
+      "npm run lint": "allow",
+      "npm run test": "allow",
+      "npm run typecheck": "allow",
+      "bunx *": "ask",
       "git checkout *": "ask",
       "git clean *": "ask",
       "git commit *": "ask",
-      "git diff *": "allow",
-      "git log *": "allow",
       "git merge *": "ask",
       "git push *": "ask",
       "git rebase *": "ask",
       "git reset *": "ask",
-      "git status *": "allow",
-      "ls *": "allow",
-      "npm *": "allow",
+      "npm *": "ask",
+      "npx *": "ask",
+      "pnpm dlx *": "ask",
       "npm publish *": "ask",
       "npm run db:push*": "ask",
       "npm run db:reset*": "deny",
-      "npx *": "allow",
-      "rm *": "deny",
-      "rm -rf *": "deny",
-      "sudo *": "deny"
+      "rm*": "deny",
+      "sudo*": "deny",
+      "*": "ask"
     },
     "doom_loop": "ask",
     "edit": "allow",
@@ -128,9 +132,9 @@
     "question": "allow",
     "read": {
       "*": "allow",
+      "*.env.example": "allow",
       "*.env": "deny",
       "*.env.*": "deny",
-      "*.env.example": "allow",
       "*.key": "deny",
       "*.pem": "deny",
       "*credentials*": "deny",
@@ -139,7 +143,7 @@
       "*token*": "deny"
     }
   },
-  "plugin": ["@tarquinen/opencode-dcp@latest", "@franlol/opencode-md-table-formatter@0.0.3", "openslimedit@latest", "opencodex-fast@latest"],
+  "plugin": [],
   "provider": {
     "openai": {
       "models": {
@@ -251,7 +255,6 @@
     "makora": {
       "name": "Makora",
       "options": {
-        "apiKey": "{env:MAKORA_OPTIMIZE_TOKEN}",
         "baseURL": "https://inference.makora.com/v1",
         "timeout": 600000
       },

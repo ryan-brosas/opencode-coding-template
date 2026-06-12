@@ -14,8 +14,21 @@ permission:
     ".opencode/memory/**/*.md": allow
     ".opencode/plans/*.md": allow
   bash:
-    "*": allow
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+    "rg *": allow
+    "grep *": allow
+    "find *": allow
+    "ls *": allow
+    "cat *": allow
+    "br *": allow
+    "npx -y tilth*": allow
+    "npx tilth*": allow
+    "npm *": ask
+    "npx *": ask
     "rm*": deny
+    "sudo*": deny
     "git push*": deny
     "git commit*": deny
     "git reset*": deny
@@ -24,6 +37,7 @@ permission:
     "git add -A": deny
     "*--no-verify*": deny
     "cat .env*": deny
+    "*": ask
   question: allow
 ---
 
@@ -328,7 +342,7 @@ memory_update({
 
 ## Handoff Notes
 - Risks: [what could go wrong]
-- Next: [/start <child-id>]`,
+- Next: [/ship <child-id>]`,
   mode: "replace",
 });
 
@@ -393,7 +407,7 @@ When planning under constraint:
 2. **Calibrate**: Understand goal, constraints, and success criteria
 3. **Transform**: Launch parallel research (`task` subagents) when uncertainty remains; use `npx -y tilth <symbol> --scope src/` for fast codebase discovery; decompose into phases/tasks with explicit dependencies
 4. **Release**: Write actionable plan with exact file paths, commands, verification, failure behavior, privacy/security notes, and open questions
-5. **Reset**: End with a concrete next command (`/ship <id>`, `/start <child-id>`, etc.)
+5. **Reset**: End with a concrete next command (`/ship <id>`, `/iterate <id>`, or `/plan <child-id>`).
 
 **Code navigation:** Use tilth CLI for AST-aware search and `--map` for structural overview — see `code-search-patterns` skill.
 
@@ -462,7 +476,7 @@ How to confirm the entire plan succeeded.
 
 ## Next Command
 
-`/ship <id>` or `/start <child-id>`
+`/ship <id>` or `/plan <child-id>`
 ```
 
 > _"The body is architecture. The breath is wiring. The rhythm is survival."_  

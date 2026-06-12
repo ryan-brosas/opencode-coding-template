@@ -1,80 +1,100 @@
 # OpenCode Coding Template
 
-A comprehensive [OpenCode](https://opencode.ai) configuration template with curated agents, skills, commands, and plugins for AI-assisted software development.
+A reusable [OpenCode](https://opencode.ai) project template for AI-assisted software development. It includes a safer default config, coding workflow commands, task tracking with Beads, and optional power-user integrations.
 
 ## What's Inside
 
-| Dir | Purpose | Size |
-|---|---|---|
-| `.opencode/` | Agents, commands, 90+ skills, plugins, memory, plans | ~5.8MB |
-| `.beads/` | Task tracking configuration (br beads) | ~1KB |
+| Path | Purpose |
+|---|---|
+| `opencode.json` | Root project config OpenCode loads by default |
+| `tui.json` | TUI keybindings and display settings |
+| `.env.example` | Minimal environment template |
+| `env.integrations.example` | Optional API keys and MCP integrations |
+| `.opencode/agent/` | 8 agent prompts: build, plan, explore, review, scout, general, vision, painter |
+| `.opencode/command/` | 22 slash commands for create/plan/iterate/verify/ship/pr and optional workflows |
+| `.opencode/skill/` | 90+ skills; coding core plus optional UI, cloud, product, and research packs |
+| `.opencode/plugin/` | Local OpenCode plugins for memory/session/skill helpers |
+| `.opencode/tool/` | Custom tools: Context7 and grep search |
+| `.beads/` | Beads task-tracking seed/config |
 
-## Agents (9)
+## Core Workflow
 
-| Agent | Model | Use For |
-|---|---|---|
-| **build** | Primary development | Full codebase implementation |
-| **plan** | Architecture planning | Multi-phase execution design |
-| **explore** | Fast search | Codebase navigation |
-| **review** | Code review | Debugging, security audits |
-| **scout** | External research | Library docs and patterns |
-| **general** | Subagent delegation | Fast, well-defined tasks |
-| **vision** | Multimodal analysis | UI/UX guidance |
-| **painter** | Image generation | UI mockups, visual assets |
-| **compaction** | Session summary | Context continuity |
+Recommended coding loop:
 
-## Commands (20+)
+```text
+/create "describe the work"
+/plan <bead-id>
+/iterate <bead-id>
+/verify
+/ship <bead-id>
+/pr
+```
 
-`/ship` · `/verify` · `/compound` · `/create` · `/plan` · `/explore` · `/research` · `/design` · `/iterate` · `/handoff` · `/curate` · `/status` · `/health` · `/pr` · `/review-codebase` · `/ui-review` · `/ui-slop-check` · `/init` · `/init-context` · `/init-user` · `/resume` · `/lfg`
-
-## Skills (90+)
-
-Core development, frontend design, Cloudflare, Supabase, Swift/SwiftUI, React best practices, security hardening, testing, debugging, research, swarm coordination, and more.
-
-## Plugins
-
-- **Memory system** — SQLite-backed project memory with hooks
-- **Copilot provider** — OpenAI-compatible API adapter
-- **Context7 / GrepSearch** — Documentation and code search tools
+`/lfg`, UI/design commands, research commands, and cloud/vendor skills are included for users who want the larger power-user kit, but they are not required for the core coding workflow.
 
 ## Quick Start
 
 ```bash
-# Clone into your project
 cd your-project
 git clone --depth 1 https://github.com/ryan-brosas/opencode-coding-template.git tmp-ock
+
+cp tmp-ock/opencode.json .
+cp tmp-ock/tui.json .
+cp tmp-ock/.env.example .
 cp -r tmp-ock/.opencode .
 cp -r tmp-ock/.beads .
+
 rm -rf tmp-ock
-
-# Copy environment template
-cp .opencode/.env.example .opencode/.env
-# Edit .env with your API keys
-
-# Start OpenCode
+cp .env.example .env
+# Edit .env with your model/provider values, then start:
 opencode
 ```
 
+OpenCode expects `opencode.json` at the project root; this template now puts the active config there so it loads without `OPENCODE_CONFIG`.
+
+## Security Defaults
+
+The template is intentionally conservative:
+
+- Broad shell execution defaults to `ask`, not `allow`
+- Read-only search/git commands are allowed
+- Destructive commands such as `rm*` and `sudo*` are denied
+- NPM plugin auto-install is disabled by default (`plugin: []`)
+- Optional MCP servers are disabled until you enable them intentionally
+- `.env`, credentials, logs, generated plans, and runtime state are ignored
+
 ## Environment Setup
 
-See `.opencode/.env.example` for required and optional environment variables:
+Minimal setup lives in `.env.example`:
 
-- **Context7** — Library documentation (recommended)
-- **Exa** — Web search and code context (recommended)
-- **Gemini / OpenAI** — Code execution and multimodal features (optional)
-- **Cloudflare** — Deployment features (optional)
+- `OPENCODE_MODEL`
+- `OPENCODE_SMALL_MODEL`
+- `OPENCODE_PLAN_MODEL`
+- provider credential helper values such as `MAKORA_API_KEY` if you use the bundled Makora example
 
-## Task Tracking (Optional)
+Optional services are documented in `env.integrations.example`.
 
-This template includes `.beads/` config for [br beads](https://github.com/ryan-brosas/br-beads) task tracking:
+## Beads Task Tracking
+
+This template includes `.beads/` config for Beads task tracking. Generated artifacts are local by default.
+
+```text
+.beads/
+  config.yaml       # tracked template config
+  issues.jsonl      # tracked seed/task state
+  metadata.json     # tracked metadata
+  artifacts/        # generated PRDs/plans/reviews; ignored by default
+  *.db              # generated local database files; ignored
+```
+
+## Template Audit
+
+Run the lightweight self-check after modifying the template:
 
 ```bash
-# Requires br beads installed
-br init
-br create "build feature X"
-br claim 1
+scripts/audit-template.sh
 ```
 
 ## License
 
-MIT — use as a starting point for your own OpenCode configuration.
+MIT — use this as a starting point for your own OpenCode configuration.

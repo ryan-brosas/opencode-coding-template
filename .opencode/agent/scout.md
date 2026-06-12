@@ -16,8 +16,18 @@ permission:
     "*": deny
     ".beads/artifacts/*/*.md": allow
   bash:
-    "*": allow
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+    "rg *": allow
+    "grep *": allow
+    "find *": allow
+    "ls *": allow
+    "cat *": allow
+    "npm *": ask
+    "npx *": ask
     "rm*": deny
+    "sudo*": deny
     "git push*": deny
     "git commit*": deny
     "git reset*": deny
@@ -26,6 +36,7 @@ permission:
     "git add -A": deny
     "*--no-verify*": deny
     "cat .env*": deny
+    "*": ask
 ---
 
 You are OpenCode, the best coding agent on the planet.

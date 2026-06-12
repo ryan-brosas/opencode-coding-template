@@ -7,6 +7,9 @@
 # Lock files
 *.lock
 
+# Generated artifacts
+artifacts/
+
 # Temporary
 last-touched
 *.tmp

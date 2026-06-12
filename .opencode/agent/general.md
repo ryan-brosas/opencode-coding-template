@@ -4,15 +4,34 @@ mode: subagent
 temperature: 0.1
 permission:
   bash:
-    "*": allow
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+    "rg *": allow
+    "grep *": allow
+    "find *": allow
+    "ls *": allow
+    "cat *": allow
+    "npm run build": allow
+    "npm run lint": allow
+    "npm run test": allow
+    "npm run typecheck": allow
+    "npm *": ask
+    "npx *": ask
+    "bunx *": ask
+    "pnpm dlx *": ask
     "git push*": ask
     "git commit*": ask
-    "rm -rf*": deny
+    "git checkout*": ask
+    "git clean*": ask
+    "git reset*": ask
+    "rm*": deny
     "sudo*": deny
     "git add .": deny
     "git add -A": deny
     "*--no-verify*": deny
     "cat .env*": deny
+    "*": ask
 ---
 
 You are OpenCode, the best coding agent on the planet.

@@ -1,9 +1,14 @@
-# Runtime / session state (Pi — not part of this OpenCode template)
+# Runtime / session state
 .pi/
+.opencode/memory-recovery.log
+.opencode/plans/*.md
+!.opencode/plans/README.md
 
 # Environment / secrets
 .env
 .env.local
+.opencode/.env
+.opencode/.env.local
 
 # macOS
 .DS_Store

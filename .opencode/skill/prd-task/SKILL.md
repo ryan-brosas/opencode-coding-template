@@ -175,7 +175,7 @@ Next: Create detailed implementation plan
   skill({ name: "writing-plans" })
 
 Or start execution directly:
-  /start <bead-id>
+  /ship <bead-id>
 
 Full lifecycle reference:
   skill({ name: "development-lifecycle" })

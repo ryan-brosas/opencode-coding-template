@@ -12,8 +12,18 @@ tools:
   question: false
 permission:
   bash:
-    "*": allow
+    "git diff*": allow
+    "git status*": allow
+    "git log*": allow
+    "rg *": allow
+    "grep *": allow
+    "find *": allow
+    "ls *": allow
+    "npm run test": ask
+    "npm run lint": ask
+    "npm run typecheck": ask
     "rm*": deny
+    "sudo*": deny
     "git push*": deny
     "git commit*": deny
     "git reset*": deny
@@ -21,6 +31,7 @@ permission:
     "git add -A": deny
     "*--no-verify*": deny
     "cat .env*": deny
+    "*": ask
 ---
 
 You are opencode, an interactive CLI tool that helps users with software engineering tasks.

@@ -15,16 +15,26 @@ tools:
   codesearch: false
 permission:
   bash:
-    "*": allow
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+    "rg *": allow
+    "grep *": allow
+    "find *": allow
+    "ls *": allow
+    "cat *": allow
+    "npx -y tilth*": allow
+    "npx tilth*": allow
     "rm*": deny
+    "sudo*": deny
     "git push*": deny
     "git commit*": deny
     "git reset*": deny
-    "sudo*": deny
     "git add .": deny
     "git add -A": deny
     "*--no-verify*": deny
     "cat .env*": deny
+    "*": ask
 ---
 
 You are OpenCode, the best coding agent on the planet.
