@@ -165,15 +165,29 @@ PY
 check "runtime markdown frontmatter is multiline and parseable" python3 - <<'PY'
 from pathlib import Path
 import sys
-files=[]
-files += list(Path('.opencode/agent').glob('*.md'))
-files += list(Path('.opencode/command').glob('*.md'))
-files += list(Path('.opencode/skill').glob('*/SKILL.md'))
-files += list(Path('extras').glob('**/*.md'))
+
+required = set()
+required.update(Path('.opencode/agent').glob('*.md'))
+required.update(Path('.opencode/command').glob('*.md'))
+required.update(Path('.opencode/skill').glob('*/SKILL.md'))
+required.update(Path('extras').glob('*/agent/*.md'))
+required.update(Path('extras').glob('*/command/*.md'))
+required.update(Path('extras').glob('*/skill/*/SKILL.md'))
+
+files = set(required)
+files.update(Path('extras').glob('**/*.md'))
+
 bad=[]
-for path in files:
+for path in sorted(files):
     lines=path.read_text(errors='ignore').splitlines()
-    if not lines or lines[0].strip() != '---':
+    must_have_frontmatter = path in required
+    if not lines:
+        if must_have_frontmatter:
+            bad.append(f'{path}: empty file')
+        continue
+    if lines[0].strip() != '---':
+        if must_have_frontmatter or lines[0].lstrip().startswith('---'):
+            bad.append(f'{path}: frontmatter must start with standalone ---')
         continue
     try:
         close=next(i for i, line in enumerate(lines[1:], 1) if line.strip() == '---')
@@ -182,8 +196,8 @@ for path in files:
         continue
     if close == 1:
         bad.append(f'{path}: empty frontmatter')
-    if path.name == 'SKILL.md' and '.opencode/skill/' in str(path):
-        frontmatter='\n'.join(lines[1:close])
+    frontmatter='\n'.join(lines[1:close])
+    if path.name == 'SKILL.md' and '/skill/' in path.as_posix():
         if 'name:' not in frontmatter or 'description:' not in frontmatter:
             bad.append(f'{path}: skill frontmatter missing name/description')
 if bad:

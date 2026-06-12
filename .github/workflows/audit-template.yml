@@ -16,5 +16,11 @@ jobs:
       - name: Install audit dependencies
         run: sudo apt-get update && sudo apt-get install -y ripgrep
 
+      - name: Guard against serialized audit script
+        run: |
+          test "$(wc -l < scripts/audit-template.sh)" -gt 100
+          test "$(sed -n '1p' scripts/audit-template.sh)" = '#!/usr/bin/env bash'
+          test "$(sed -n '2p' scripts/audit-template.sh)" = 'set -euo pipefail'
+
       - name: Validate template hygiene
         run: bash scripts/audit-template.sh

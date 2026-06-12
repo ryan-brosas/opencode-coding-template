@@ -74,8 +74,8 @@ Do not install Portless, start/stop proxies, trust CAs, sync hosts, prune/clean 
 
 ```typescript
 list_recent_sessions({ limit: 5 });
-// If you need targeted history, use:
-// find_sessions({ query: "<project-name or recent-bead-keywords>", limit: 5 });
+// If you need targeted history, find_sessions requires a non-empty query:
+// find_sessions({ query: "auth bug", limit: 5 });
 ```
 
 ---
