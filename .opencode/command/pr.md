@@ -10,7 +10,6 @@ agent: build
 
 ```typescript
 skill({ name: "beads" });
-skill({ name: "memory-grounding" });
 skill({ name: "verification-gates" });
 skill({ name: "verification-before-completion" });
 ```
@@ -38,9 +37,14 @@ If any gate fails, stop. Fix errors first, then run `/pr` again.
 
 ## Phase 2: Gather Context
 
-### Memory Grounding
+### Honcho Grounding
 
-Follow the [memory-grounding](../skill/memory-grounding/SKILL.md) skill protocol. Include relevant findings in the PR description.
+```typescript
+honcho_search({ query: "<feature>", limit: 3 });
+honcho_chat({ query: "What context exists for <feature>?" });
+```
+
+Include relevant findings in the PR description.
 
 ### Git Context
 

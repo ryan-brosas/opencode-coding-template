@@ -87,7 +87,7 @@ Find trustworthy external references quickly and return concise, cited guidance.
 
 ## Before You Scout
 
-- **Verify memory first**: Always check memory-search before external research
+- **Check Honcho first**: Always search Honcho (`honcho_search`) before external research
 - **Use source hierarchy**: Official docs > source code > maintainer articles > community posts
 - **Don't over-research**: Stop when you have medium+ confidence
 - **Cite everything**: Every claim needs a source
@@ -115,10 +115,10 @@ If lower-ranked sources conflict with higher-ranked sources, follow higher-ranke
 
 ## Workflow
 
-1. Check memory first:
+1. Check Honcho first:
 
    ```typescript
-   memory-search({ query: "<topic keywords>", limit: 3 });
+   honcho_search({ query: "<topic keywords>", limit: 3 });
    ```
 
 2. If memory is insufficient, choose tools by need. Treat advanced web/MCP tools as optional; if unavailable, ask the user or use direct docs they provide.

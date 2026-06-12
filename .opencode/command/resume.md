@@ -12,7 +12,6 @@ Pick up where a previous session left off. Recover context, verify state, contin
 
 ```typescript
 skill({ name: "beads" });
-skill({ name: "memory-grounding" });
 ```
 
 ## Phase 1: Verify Task
@@ -34,9 +33,16 @@ If not on the right branch, check out the feature branch. If uncommitted changes
 
 ## Phase 3: Find Handoff
 
-Follow the [memory-grounding](../skill/memory-grounding/SKILL.md) skill protocol. Focus on: handoff file by bead ID, session history.
+Search Honcho for prior session context (if installed):
 
-If a handoff exists, it tells you:
+```typescript
+honcho_search({ query: "<bead-id> handoff", limit: 3 });
+honcho_chat({ query: "What was the state of <bead-id>?" });
+```
+
+Also check `.beads/artifacts/$ARGUMENTS/` for existing plan/progress files.
+
+If a handoff exists in Honcho, it tells you:
 
 - What was completed
 - Where work stopped

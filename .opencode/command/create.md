@@ -16,7 +16,6 @@ Create a bead, write its specification (PRD), claim it, set up the workspace, an
 
 ```typescript
 skill({ name: "beads" });
-skill({ name: "memory-grounding" });
 skill({ name: "workspace-setup" });
 // Product-pack PRD helpers are optional; this command includes the required PRD/task format inline.
 ```
@@ -56,9 +55,13 @@ skill({ name: "workspace-setup" });
 
 ## Phase 1: Duplicate Check
 
-### Memory Search
+### Honcho Search
 
-Follow the [memory-grounding](../skill/memory-grounding/SKILL.md) skill protocol. Focus on: duplicate bead detection, prior decisions.
+Check Honcho for prior context (if installed):
+
+```typescript
+honcho_search({ query: "<task keywords>", limit: 3 });
+```
 
 ### Bead List Check
 

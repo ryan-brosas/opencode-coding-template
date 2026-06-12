@@ -76,26 +76,26 @@ Treat `DESIGN.md` as the visual contract for AI-generated UI: it defines how the
 
 ### Do Not Use For
 
-- Image generation/editing → install optional `extras/ui-pack` and delegate to `@painter`
-- PDF extraction-heavy work → install optional `extras/research-pack` and use `pdf-extract`
+- Image generation/editing → delegate to `@painter`
+- PDF extraction-heavy work → use `pdf-extract` skill
 - Code implementation → delegate to `@build`
 
 ## Skills
 
 Route by need:
 
-| Need                                          | Skill                 |
-| --------------------------------------------- | --------------------- |
-| General visual review                         | `visual-analysis`     |
-| Accessibility audit                           | `accessibility-audit` |
-| UX heuristics and state coverage              | `ux-quality-gates`    |
-| Frontend implementation patterns              | `frontend-design`, `react-best-practices` |
-| Optional design-system audit                  | install `extras/ui-pack` |
-| Optional mockup/Figma/brand extraction        | install `extras/ui-pack` or `extras/research-pack` |
+| Need                                   | Skill                                                    |
+| -------------------------------------- | -------------------------------------------------------- |
+| General visual review                  | `visual-analysis`                                        |
+| Accessibility audit                    | `accessibility-audit`                                    |
+| UX heuristics and state coverage       | `ux-quality-gates`                                       |
+| Frontend implementation patterns       | `frontend-design`, `react-best-practices`                |
+| Optional design-system audit           | `design-system-audit` skill                              |
+| Optional mockup/Figma/brand extraction | `mockup-to-code`, `figma`, `brand-asset-protocol` skills |
 
 ### Optional Taste/Design Variants
 
-Use optional `extras/ui-pack` skills only when the user explicitly asks for visual direction, Figma/mockup extraction, brand work, or image/design generation.
+Use design-related skills only when the user explicitly asks for visual direction, Figma/mockup extraction, brand work, or image/design.
 
 ## Design Taste Protocol (anti-slop)
 
@@ -111,9 +111,9 @@ Use these criteria to identify and call out generic, low-quality UI patterns:
 - **Accessibility**: Color contrast, focus visibility, text sizes, and tap targets must be validated or flagged as unverifiable.
 - **Emoji ban**: No emojis in UI copy, labels, or icons unless the user explicitly asked.
 
-## Figma/Mockup Workflow (optional)
+## Figma/Mockup Workflow
 
-If Figma or mockup extraction is required, first install `extras/ui-pack` and then ground feedback in actual nodes or screenshots:
+If Figma or mockup extraction is required, use the `figma` or `figma-go` skills to ground feedback in actual nodes or screenshots:
 
 1. Ask for Figma file access, a design link, or screenshots
 2. Use optional Figma/mockup tooling only after the user provides access

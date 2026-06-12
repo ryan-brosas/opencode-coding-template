@@ -6,12 +6,10 @@ permission:
   write:
     "*": ask
     ".beads/artifacts/*/*.md": allow
-    ".opencode/memory/**/*.md": allow
     ".opencode/plans/*.md": allow
   edit:
     "*": ask
     ".beads/artifacts/*/*.md": allow
-    ".opencode/memory/**/*.md": allow
     ".opencode/plans/*.md": allow
   bash:
     "git status*": allow
@@ -295,62 +293,48 @@ Plan 03: All UI (User + Product + Order)      ← Depends on Plan 02
 
 ## Memory Ritual
 
-Planning requires understanding what came before. Follow this ritual every session:
+Planning requires understanding what came before. Use **Honcho** to load prior context and persist plans.
 
 ### Ground Phase — Load Context
 
 ```typescript
-// 1. Search for similar past plans and patterns
-memory_search({ query: "<feature/area> plan", limit: 5 });
-memory_search({ query: "architecture decision", type: "observations" });
+// 1. Search Honcho for similar past plans and patterns
+honcho_search({ query: "<feature/area> plan", limit: 5 });
 
-// 2. Check recent handoffs for context
-memory_read({ file: "handoffs/last" });
+// 2. Query Honcho for architecture decisions
+honcho_chat({ query: "What architecture decisions were made for <area>?" });
 
 // 3. Review existing plans in this area
-memory_read({ file: "plans/existing-feature" });
+honcho_chat({ query: "Existing plans or designs for <feature>" });
 ```
 
 ### Calibrate Phase — Record Assumptions
 
 ```typescript
-// Document key planning decisions and constraints
-observation({
-  type: "decision",
-  title: "Decomposed X into 3 phases due to complexity",
-  narrative: "Phase 1 handles core logic, Phase 2 adds edge cases, Phase 3 polishes...",
-  facts: "3 phases, core-first, 2-week timeline",
-  concepts: "planning, decomposition, timeline",
-  bead_id: "<current-bead-id>",
+// Document key planning decisions and constraints via Honcho
+honcho_create_conclusion({
+  context: "Planning decision for <feature>",
+  data: {
+    decision: "Decomposed into 3 phases",
+    reasoning: "core logic first, edge cases second, polish third",
+  },
 });
 ```
 
 ### Reset Phase — Save Plan & Learnings
 
 ```typescript
-// Save the completed plan
+// Save the completed plan to `.opencode/plans/`
 memory_update({
   file: "plans/YYYY-MM-DD-feature-name",
-  content: `# Plan: [Feature]
-
-## Goal
-...
-
-## Key Decisions
-- [Decision 1 with reasoning]
-- [Decision 2 with reasoning]
-
-## Handoff Notes
-- Risks: [what could go wrong]
-- Next: [/ship <child-id>]`,
+  content: `# Plan: [Feature]\n\n## Goal\n...`,
   mode: "replace",
 });
 
-// Document planning insights for future
-observation({
-  type: "learning",
-  title: "Pattern for decomposing X-type features",
-  narrative: "Discovered that X features break cleanly into 3 phases...",
+// Persist key learnings to Honcho
+honcho_create_conclusion({
+  context: "Planning insight for <feature>",
+  data: { type: "learning", pattern: "Discovered that X features break cleanly into 3 phases..." },
 });
 ```
 
@@ -374,11 +358,11 @@ skill({ name: "beads" });
 
 Load contextually:
 
-| Situation                              | Skill              |
-| -------------------------------------- | ------------------ |
+| Situation                              | Skill                                                                            |
+| -------------------------------------- | -------------------------------------------------------------------------------- |
 | Requirements ambiguous                 | Ask targeted questions; optional `extras/product-pack` has brainstorming helpers |
-| Producing `plan.md`                    | `writing-plans`    |
-| Spec artifacts missing/need conversion | Use inline command templates; optional `extras/product-pack` has PRD helpers |
+| Producing `plan.md`                    | `writing-plans`                                                                  |
+| Spec artifacts missing/need conversion | Use inline command templates; optional `extras/product-pack` has PRD helpers     |
 
 ## Pressure Handling
 

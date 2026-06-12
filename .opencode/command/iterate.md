@@ -16,7 +16,6 @@ Refine a bead's PRD during active implementation. Two-phase process: define what
 
 ```typescript
 skill({ name: "beads" });
-skill({ name: "memory-grounding" });
 // Product-pack PRD helpers are optional; use the inline PRD/task format in this command.
 ```
 
@@ -191,9 +190,9 @@ Output:
 
 ## Related Commands
 
-| Need                       | Command            |
-| -------------------------- | ------------------ |
-| Create initial spec        | `/create`          |
-| Continue shipping          | `/ship <id>`       |
-| Review after changes       | `/review-codebase` |
+| Need                       | Command                                                           |
+| -------------------------- | ----------------------------------------------------------------- |
+| Create initial spec        | `/create`                                                         |
+| Continue shipping          | `/ship <id>`                                                      |
+| Review after changes       | `/review-codebase`                                                |
 | Post-implementation review | Optional: install `extras/autonomous-pack`, then `/compound <id>` |

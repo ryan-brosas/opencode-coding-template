@@ -104,7 +104,7 @@ observation({
 
 ## Related Commands
 
-| Need                          | Command                            |
-| ----------------------------- | ---------------------------------- |
-| Optional design from scratch  | install `extras/ui-pack`, then `/design` |
-| Ship implementation           | `/ship`                            |
+| Need                | Command   |
+| ------------------- | --------- |
+| Design from scratch | `/design` |
+| Ship implementation | `/ship`   |

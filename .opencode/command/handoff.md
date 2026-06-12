@@ -21,7 +21,6 @@ Save state so the next session can pick up cleanly.
 
 ```typescript
 skill({ name: "beads" });
-skill({ name: "memory-system" });
 ```
 
 ---
@@ -68,60 +67,44 @@ git commit -m "WIP: $ARGUMENTS - [brief description of where you stopped]"
 
 ---
 
-## Phase 3: Write Handoff
+## Phase 3: Persist Handoff via Honcho
 
-Write the handoff to the memory system:
+Write the handoff as a Honcho conclusion (requires Honcho plugin):
 
 ```typescript
-memory_update({
-  file: "handoffs/$ARGUMENTS",
-  content: `# Handoff: $ARGUMENTS
-
-**Date:** [timestamp]
-**Branch:** [from git branch]
-**Commit:** [from git rev-parse]
-
-## Done
-- [completed work]
-
-## In Progress
-- [current step] — stopped because [reason]
-
-## Remaining
-- [next steps]
-
-## Files Touched
-- \`path/to/file.ts\` — [what changed]
-
-## Decisions
-- [decision]: [why]
-
-## Blockers
-[any blockers, or "None"]
-
-## Resume Instructions
-1. [first thing to do]
-2. [second thing to do]
-
-Resume with: \`/resume $ARGUMENTS\`
-`,
-  mode: "replace",
+honcho_create_conclusion({
+  context: "Session handoff: $ARGUMENTS",
+  data: {
+    bead: "$ARGUMENTS",
+    date: "[timestamp]",
+    branch: "[from git branch]",
+    commit: "[from git rev-parse]",
+    completed: "[completed work]",
+    in_progress: "[current step]",
+    blockers: "[any blockers, or None]",
+    next_steps: "[next steps]",
+    files_touched: ["path/to/file.ts"],
+    decisions: [{ decision: "[decision]", reason: "[why]" }],
+  },
 });
+```
+
+Also write to `progress.txt` for git-tracked persistence:
+
+```bash
+echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Handoff: stopped at [step]" >> .beads/artifacts/$ARGUMENTS/progress.txt
 ```
 
 ---
 
 ## Phase 4: Record Learnings (If Any)
 
-If you discovered patterns or gotchas worth remembering:
+If you discovered patterns worth remembering:
 
 ```typescript
-observation({
-  type: "learning",
-  title: "[concise, searchable title]",
-  narrative: "[what you learned — specific and actionable]",
-  bead_id: "$ARGUMENTS",
-  concepts: "[keywords for search]",
+honcho_create_conclusion({
+  context: "Learning from $ARGUMENTS",
+  data: { type: "learning", narrative: "[what you learned]", keywords: "[searchable terms]" },
 });
 ```
 

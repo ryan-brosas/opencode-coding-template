@@ -18,7 +18,6 @@ Create a detailed implementation plan with TDD steps. Optional deep-planning bet
 
 ```typescript
 skill({ name: "beads" });
-skill({ name: "memory-grounding" });
 skill({ name: "writing-plans" }); // TDD plan format
 skill({ name: "frontend-implementation-quality" }); // For frontend/UI work
 ```
@@ -44,11 +43,15 @@ Before touching the PRD or planning anything, load what the codebase already kno
 
 **This step is not optional.** Skipping it means planning in the dark.
 
-### Step 1: Search institutional memory
+### Step 1: Search Honcho for prior context
 
-Follow the [memory-grounding](../skill/memory-grounding/SKILL.md) skill protocol. Focus on: bugfixes, existing plans (ask user before overwriting).
+```typescript
+honcho_search({ query: "<feature> plan", limit: 5 });
+honcho_search({ query: "bugfix <component>", limit: 3 });
+honcho_chat({ query: "What prior decisions exist for <area>?" });
+```
 
-If relevant observations found: incorporate them directly into the plan. Don't re-solve solved problems.
+If relevant findings found: incorporate them directly into the plan. Don't re-solve solved problems.
 
 ### Step 2: Mine git history
 
@@ -429,8 +432,8 @@ br comments add $ARGUMENTS "Created plan.md: Level [N] discovery, [X] waves, [Y]
 
 ## Related Commands
 
-| Need           | Command      |
-| -------------- | ------------ |
-| Create spec    | `/create`    |
-| Execute plan   | `/ship <id>` |
+| Need           | Command                                                         |
+| -------------- | --------------------------------------------------------------- |
+| Create spec    | `/create`                                                       |
+| Execute plan   | `/ship <id>`                                                    |
 | Research first | Use `@scout`, or install `extras/research-pack` for `/research` |

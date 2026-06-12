@@ -1,22 +1,21 @@
 # OpenCode Coding Template
 
-A reusable [OpenCode](https://opencode.ai) project template for AI-assisted software development. The default install is a focused coding baseline including backend and frontend engineering; pure visual design, Figma/asset workflows, cloud, product, research, language, and autonomous workflows live in optional `extras/` packs.
+A comprehensive [OpenCode](https://opencode.ai) project template for AI-assisted software development. Includes a full coding baseline plus visual design, Figma/asset workflows, cloud, product, research, language, autonomous, and organization integrations — all under `.opencode/`.
 
 ## What's Inside
 
-| Path | Purpose |
-|---|---|
-| `opencode.json` | Root project config OpenCode loads by default; explicitly loads `.opencode/AGENTS.md` |
-| `tui.json` | TUI keybindings and display settings |
-| `.env.example` | Minimal environment template |
-| `env.integrations.example` | Optional API keys and MCP integrations |
-| `.opencode/agent/` | 6 user-facing core agents: build, plan, explore, review, scout, general (plus config-only compaction summarizer) |
-| `.opencode/command/` | 10 core slash commands for create/plan/iterate/verify/ship/pr |
-| `.opencode/skill/` | Focused coding/frontend-implementation/workflow skill baseline |
-| `.opencode/plugin/` | Core local plugins: memory, sessions, skill MCP |
-| `.opencode/tool/` | Custom tools: Context7 and grep search |
-| `.beads/` | Beads task-tracking seed/config |
-| `extras/` | Optional UI, cloud, research, product, org, language, integration, and autonomous packs |
+| Path                       | Count       | Purpose                                                                                     |
+| -------------------------- | ----------- | ------------------------------------------------------------------------------------------- |
+| `opencode.json`            | —           | Root project config; loads `.opencode/AGENTS.md`                                            |
+| `tui.json`                 | —           | TUI keybindings and display settings                                                        |
+| `.env.example`             | —           | Minimal environment template                                                                |
+| `env.integrations.example` | —           | Optional API keys and MCP integrations                                                      |
+| `.opencode/agent/`         | 8 agents    | build, plan, explore, review, scout, general, vision, painter                               |
+| `.opencode/command/`       | 16 commands | create/plan/iterate/verify/ship/pr + design/ui-review + research/lfg/health                 |
+| `.opencode/skill/`         | 98 skills   | coding, frontend, design, cloud, product, research, org, language, and autonomous workflows |
+| `.opencode/plugin/`        | 4 plugins   | sessions, skill-mcp, prompt-leverage, rtk                                                   |
+| `.opencode/tool/`          | 2 tools     | Context7 and grep search                                                                    |
+| `.beads/`                  | —           | Beads task-tracking seed/config                                                             |
 
 ## Core Workflow
 
@@ -42,7 +41,6 @@ cp tmp-ock/tui.json .
 cp tmp-ock/.env.example .
 cp -r tmp-ock/.opencode .
 cp -r tmp-ock/.beads .
-cp -r tmp-ock/extras .   # optional packs; safe to omit if you only want the core
 
 rm -rf tmp-ock
 cp .env.example .env
@@ -52,27 +50,27 @@ opencode
 
 OpenCode expects `opencode.json` at the project root; this template puts the active config there so it loads without `OPENCODE_CONFIG`.
 
-## Optional Packs
+## Memory Persistence (Honcho)
 
-Copy only the packs you want into `.opencode/`:
+Memory is handled by **Honcho** (`@honcho-ai/opencode-honcho`), a cloud-native memory system installed globally.
 
 ```bash
-# Example: add optional visual/design workflows
-cp -r extras/ui-pack/agent/* .opencode/agent/ 2>/dev/null || true
-cp -r extras/ui-pack/command/* .opencode/command/ 2>/dev/null || true
-cp -r extras/ui-pack/skill/* .opencode/skill/ 2>/dev/null || true
+opencode plugin "@honcho-ai/opencode-honcho" --global
+opencode
+/honcho:setup  # Set API key
+/honcho:status # Verify
 ```
 
-Available packs:
+Provides: `honcho_search`, `honcho_chat`, `honcho_create_conclusion` for search, reasoning, and persistence.
 
-- `extras/ui-pack` — optional vision/UI review agent, visual design, Figma, image, browser automation, and mockup workflows
-- `extras/cloud-pack` — Cloudflare, Supabase, Resend, Polar, Vercel helpers
-- `extras/research-pack` — deep research, context engineering, Webclaw, prompt leverage
-- `extras/product-pack` — PRD, brainstorming, init/explore/health commands
-- `extras/org-pack` — GitHub/Jira workflow helpers
-- `extras/language-pack` — Swift/Core Data specialists
-- `extras/autonomous-pack` — LFG/compound/swarm workflows
-- `extras/integration-pack` — optional local plugins and DCP/opencodex config
+## Plugin Notes
+
+Two optional plugins require runtime dependencies:
+
+- `prompt-leverage.ts` — prompt pre-processing with structured execution framing
+- `rtk.ts` — RTK command-output compression (requires `rtk >= 0.23.0` in PATH)
+
+Plugins are auto-discovered; remove any `.ts` file you don't need.
 
 ## Security Defaults
 

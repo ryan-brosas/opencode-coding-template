@@ -57,7 +57,7 @@ Check for references to skills, commands, or agents that don't exist:
 
 ### 2a. Skill references in commands and AGENTS.md
 
-For every `skill({ name: "X" })` call found in `.opencode/command/*.md` and `AGENTS.md`:
+For every `skill()` call referencing a skill name found in `.opencode/command/*.md` and `AGENTS.md`:
 
 - Verify `.opencode/skill/X/SKILL.md` exists
 - Flag any that don't exist as **CRITICAL**
@@ -167,18 +167,17 @@ Estimate the total token cost of context injected into each command execution:
 # Base context (always injected)
 echo "=== Base Context ==="
 wc -c AGENTS.md
-wc -c .opencode/memory/project/user.md .opencode/memory/project/tech-stack.md .opencode/memory/project/project.md 2>/dev/null
 echo "=== Agent Prompts ==="
 wc -c .opencode/agent/*.md 2>/dev/null
 ```
 
 For each command, estimate total context = Base + Agent prompt + Skills loaded:
 
-| Command | Base | Agent    | Skills Loaded                                          | Est. Tokens | Budget             |
-| ------- | ---- | -------- | ------------------------------------------------------ | ----------- | ------------------ |
-| `/ship` | [N]  | build.md | beads, memory-grounding, workspace-setup, verification | [total]     | [OK/HEAVY/BLOATED] |
-| `/plan` | [N]  | plan.md  | beads, memory-grounding, writing-plans                 | [total]     | [OK/HEAVY/BLOATED] |
-| ...     | ...  | ...      | ...                                                    | ...         | ...                |
+| Command | Base | Agent    | Skills Loaded                        | Est. Tokens | Budget             |
+| ------- | ---- | -------- | ------------------------------------ | ----------- | ------------------ |
+| `/ship` | [N]  | build.md | beads, workspace-setup, verification | [total]     | [OK/HEAVY/BLOATED] |
+| `/plan` | [N]  | plan.md  | beads, writing-plans                 | [total]     | [OK/HEAVY/BLOATED] |
+| ...     | ...  | ...      | ...                                  | ...         | ...                |
 
 **Thresholds:**
 
@@ -249,7 +248,7 @@ Flag opportunities:
 
 - Skills that share >50% identical content (candidates for merging or shared base)
 - Commands with identical boilerplate sections (candidates for shared template)
-- Repeated `skill({ name: "X" })` calls across commands (consider making X a dependency)
+- Repeated `skill()` calls for the same skill across commands (consider making it a dependency)
 
 ### AI Governance Report
 

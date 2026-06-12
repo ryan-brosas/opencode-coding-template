@@ -1,8 +1,6 @@
 # Multi-Agent Beads Coordination
 
-The focused default template keeps Beads as the task-tracking layer and leaves swarm orchestration optional.
-
-For parallel execution with multiple subagents, install `extras/autonomous-pack` and copy its skills/commands into `.opencode/`.
+Beads handles task tracking; swarm orchestration is provided by the `swarm-coordination` skill and `compound`/`lfg` commands.
 
 ## Default Beads Responsibilities
 
@@ -11,9 +9,9 @@ For parallel execution with multiple subagents, install `extras/autonomous-pack`
 - Store implementation artifacts under `.beads/artifacts/`
 - Provide resumable handoff state across sessions
 
-## Optional Autonomous Pack Responsibilities
+## Swarm Coordination
 
-After installing `extras/autonomous-pack`, use its swarm coordination workflows for:
+Use the swarm coordination workflows for:
 
 - Parallel worker assignment
 - Worker progress monitoring

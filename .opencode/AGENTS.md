@@ -39,8 +39,7 @@ If a source from Tier 4 conflicts with Tier 1-2, the higher tier wins. If Tier 1
 3. **User intent** — do what was asked, simply and directly
 4. **Agency preservation** — "likely difficult" ≠ "impossible" ≠ "don't try"
 5. This `AGENTS.md`
-6. Memory (`memory-search`)
-7. Project files and codebase evidence
+6. Project files and codebase evidence
 
 If a newer user instruction conflicts with an earlier one, follow the newer instruction. Preserve earlier instructions that don't conflict.
 
@@ -237,7 +236,7 @@ Use specialist agents by intent:
 | `@review`  | Correctness/security/debug review |
 | `@plan`    | Architecture and execution plans  |
 
-Optional visual/design agents such as `@vision` and `@painter` live in `extras/ui-pack/agent/` and are not loaded by default.
+Optional visual/design agents such as `@vision` and `@painter` are available as subagents.
 
 **Note:** Frontend implementation/QA is core coding. Figma extraction, image generation, brand direction, specialized visual critique, PDF extraction, and browser automation helpers live in optional packs.
 
@@ -359,38 +358,46 @@ For major tracked work:
 - **Skills** hold reusable procedures
 - **Agent prompts** stay role-focused; don't duplicate long checklists
 - **Load skills on demand**, not by default
-- **Optional prompt pre-processing** — `prompt-leverage` lives in `extras/research-pack/skill/` and its plugin lives in `extras/integration-pack/plugin/`; install both only if you want that power-user behavior.
+- **Optional prompt pre-processing** — the `prompt-leverage` plugin can be enabled in `.opencode/plugin/prompt-leverage.ts`
 
 ### Intent → Skill Mapping
 
 When user intent is clear, load the appropriate skills:
 
-| Intent                                    | Phase          | Skills to Load                                                                                   |
-| ----------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------ |
-| "Build a feature"                         | Define → Build | `writing-plans` → `incremental-implementation` + `test-driven-development`                       |
-| "Fix a bug"                               | Verify         | `systematic-debugging` → `root-cause-tracing`                                                    |
-| "Review code"                             | Review         | `receiving-code-review` or `requesting-code-review`                                              |
-| "Simplify / refactor"                     | Review         | `code-simplification`                                                                            |
-| "Ship it"                                 | Ship           | `verification-before-completion` → `finishing-a-development-branch`                              |
-| "Plan this"                               | Plan           | `writing-plans`                                                                                  |
-| "Execute a plan"                          | Build          | `executing-plans`                                                                                |
-| "Debug flaky tests"                       | Verify         | `condition-based-waiting` + `systematic-debugging`                                               |
-| "Debug in browser"                        | Verify         | Install `extras/ui-pack`, then use `chrome-devtools` or `playwright`                             |
-| "Use stable local URLs"                   | Verify         | `portless`                                                                                       |
-| "Write / fix tests"                       | Verify         | `test-driven-development` + `testing-anti-patterns`                                              |
-| "Build frontend / React UI"               | Build          | `frontend-implementation-quality` + `react-best-practices`                                       |
-| "Review frontend / accessibility"         | Review         | `frontend-implementation-quality` + `ux-quality-gates` + `accessibility-audit`                   |
-| "Design an API"                           | Build          | `api-and-interface-design` + `documentation-and-adrs`                                            |
-| "Set up CI/CD"                            | Ship           | `ci-cd-and-automation` + `verification-gates`                                                    |
-| "Deprecate / migrate"                     | Ship           | `deprecation-and-migration` + `incremental-implementation`                                       |
-| "Write docs / record ADR"                 | Define         | `documentation-and-adrs`                                                                         |
-| "Optimize performance"                    | Verify         | `performance-optimization`                                                                       |
-| "Be terse / less words / caveman mode"    | Communication  | `terse-output-mode`                                                                              |
-| "Count / parse / inspect data via script" | Verify         | `think-in-code` + `verification-before-completion`                                               |
-| "Harden security"                         | Verify         | `security-and-hardening` + `defense-in-depth`                                                    |
-| "Verify before merge"                     | Ship           | `reconcile` + `verification-gates`                                                               |
+| Intent                                       | Phase          | Skills to Load                                                                 |
+| -------------------------------------------- | -------------- | ------------------------------------------------------------------------------ |
+| "Audit accessibility"                        | Review         | `accessibility-audit`                                                          |
+| "Be terse / less words / caveman mode"       | Communication  | `terse-output-mode`                                                            |
+| "Build frontend / React UI"                  | Build          | `frontend-implementation-quality` + `react-best-practices`                     |
+| "Check output completeness"                  | Verify         | `full-output-enforcement`                                                      |
+| "Count / parse / inspect data via script"    | Verify         | `think-in-code` + `verification-before-completion`                             |
+| "Debug flaky tests"                          | Verify         | `condition-based-waiting` + `systematic-debugging`                             |
+| "Debug in browser"                           | Verify         | `chrome-devtools` + `playwright`                                               |
+| "Deprecate / migrate"                        | Ship           | `deprecation-and-migration` + `incremental-implementation`                     |
+| "Design a UI with brand identity"            | Build          | `anti-ai-slop`                                                                 |
+| "Design an API"                              | Build          | `api-and-interface-design` + `documentation-and-adrs`                          |
+| "Edit with precision / avoid replace errors" | Transform      | `structured-edit`                                                              |
+| "Execute a plan"                             | Build          | `executing-plans`                                                              |
+| "Fix a bug"                                  | Verify         | `systematic-debugging` → `root-cause-tracing`                                  |
+| "Harden security"                            | Verify         | `security-and-hardening` + `defense-in-depth`                                  |
+| "Navigate / search codebase"                 | Explore        | `code-search-patterns`                                                         |
+| "Optimize performance"                       | Verify         | `performance-optimization`                                                     |
+| "Plan this"                                  | Plan           | `writing-plans`                                                                |
+| "Review code"                                | Review         | `receiving-code-review` or `requesting-code-review`                            |
+| "Review frontend / accessibility"            | Review         | `frontend-implementation-quality` + `ux-quality-gates` + `accessibility-audit` |
+| "Set up CI/CD"                               | Ship           | `ci-cd-and-automation` + `verification-gates`                                  |
+| "Set up workspace / worktree"                | Build          | `workspace-setup` + `using-git-worktrees`                                      |
+| "Ship it"                                    | Ship           | `verification-before-completion` → `finishing-a-development-branch`            |
+| "Simplify / refactor"                        | Review         | `code-simplification`                                                          |
+| "Threat model a system"                      | Define         | `security-threat-model`                                                        |
+| "Track tasks across sessions"                | Plan           | `beads`                                                                        |
+| "Use stable local URLs"                      | Verify         | `portless`                                                                     |
+| "Write docs / record ADR"                    | Define         | `documentation-and-adrs`                                                       |
+| "Write / fix tests"                          | Verify         | `test-driven-development` + `testing-anti-patterns`                            |
+| "Build a feature"                            | Define → Build | `writing-plans` → `incremental-implementation` + `test-driven-development`     |
+| "Verify before merge"                        | Ship           | `reconcile` + `verification-gates`                                             |
 
-Optional visual-design, Figma, image generation, research, product, deployment, org, language, and autonomous mappings live in `extras/` packs.
+**Note:** Some skills are loaded programmatically by commands rather than intent-mapped (e.g., `reflection-checkpoints`). Those are always loaded by the relevant command when needed.
 
 ---
 
@@ -490,40 +497,28 @@ _Complexity is the enemy. Minimize moving parts._
 
 ## Memory System
 
-4-tier automated knowledge pipeline backed by SQLite + FTS5 (porter stemming).
+Memory persistence is handled by **Honcho** (`@honcho-ai/opencode-honcho`), a cloud-native memory system installed separately.
 
-**Pipeline:** messages → capture → distillations (TF-IDF) → observations (curator) → LTM injection (system.transform)
-
-### Memory Tools
+**Install:**
 
 ```bash
-# Search observations (FTS5)
-memory-search({ query: "auth" })
-
-# Get full observation details
-memory-get({ ids: "42,45" })
-
-# Create observation
-observation({ type: "decision", title: "Use JWT", narrative: "..." })
-
-# Update memory file
-memory-update({ file: "research/findings", content: "..." })
-
-# Read memory file
-memory-read({ file: "research/findings" })
-
-# Admin operations
-memory-admin({ operation: "status" })
-memory-admin({ operation: "capture-stats" })
-memory-admin({ operation: "distill-now" })
-memory-admin({ operation: "curate-now" })
-memory-admin({ operation: "lint" })          # Duplicates, contradictions, stale, orphans
-memory-admin({ operation: "index" })         # Generate memory catalog
-memory-admin({ operation: "compile" })       # Concept-clustered articles
-memory-admin({ operation: "log" })           # Append-only operation audit trail
+opencode plugin "@honcho-ai/opencode-honcho" --global
+# Then in OpenCode:
+/honcho:setup  # Set API key
+/honcho:status # Verify connection
 ```
 
-### Session Tools
+### Honcho Tools
+
+| Tool                                      | Purpose                              |
+| ----------------------------------------- | ------------------------------------ |
+| `honcho_search`                           | Search session messages with filters |
+| `honcho_chat`                             | Query Honcho's reasoning for context |
+| `honcho_create_conclusion`                | Persist durable memory conclusions   |
+| `honcho_get_config` / `honcho_set_config` | View/change settings                 |
+| `honcho_status`                           | Show runtime status                  |
+
+### Session Tools (built-in, independent of Honcho)
 
 ```bash
 # Search sessions by keyword
@@ -534,15 +529,8 @@ read_session({ session_id: "abc123" })
 read_session({ session_id: "abc123", focus: "auth" })
 ```
 
-### Directory Structure
+└── \_templates/ # Document templates
 
 ```
-.opencode/memory/
-├── project/           # Tacit knowledge (auto-injected)
-│   ├── user.md        # User preferences
-│   ├── tech-stack.md  # Framework, constraints
-│   └── gotchas.md     # Footguns, warnings
-├── research/          # Research notes
-├── handoffs/          # Session handoffs
-└── _templates/        # Document templates
+
 ```

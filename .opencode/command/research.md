@@ -14,7 +14,6 @@ Gather information before implementation. Find answers, document findings, stop 
 
 ```typescript
 skill({ name: "beads" });
-skill({ name: "memory-grounding" });
 // For --thorough mode:
 skill({ name: "deep-research" });
 ```
@@ -65,9 +64,16 @@ br show $ARGUMENTS
 
 Read PRD if it exists and extract questions that need answering.
 
-### Memory Search (Required)
+### Honcho Search (Recommended)
 
-Follow the [memory-grounding](../skill/memory-grounding/SKILL.md) skill protocol. Use findings to: skip already-answered questions, narrow scope to gaps only, avoid contradicting prior decisions without justification.
+Search Honcho for prior context (if installed):
+
+```typescript
+honcho_search({ query: "<research topic>", limit: 3 });
+honcho_chat({ query: "What is already known about <topic>?" });
+```
+
+Use findings to: skip already-answered questions, narrow scope to gaps only, avoid contradicting prior decisions without justification.
 
 ## Phase 2: Research
 

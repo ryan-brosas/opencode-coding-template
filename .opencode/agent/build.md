@@ -143,45 +143,43 @@ Ground phase worktree check:
 
 ## Memory Ritual
 
-Memory makes knowledge persistent. Follow this ritual every session:
+Memory makes knowledge persistent via **Honcho** (`@honcho-ai/opencode-honcho`). Follow this ritual every session:
 
 ### Ground Phase — Load Context
 
 ```typescript
-// 1. Search for relevant past work
-memory_search({ query: "<task keywords>", limit: 5 });
-memory_search({ query: "bugfix <component>", type: "observations" });
+// 1. Search for relevant past work via Honcho
+honcho_search({ query: "<task keywords>", limit: 5 });
 
-// 2. Check recent handoffs
-memory_read({ file: "handoffs/last" });
+// 2. Query Honcho for reasoning-backed context
+honcho_chat({ query: "What was done on <feature> recently?" });
 ```
 
 ### Transform Phase — Record Discoveries
 
 ```typescript
-// Create observations for non-obvious findings
-observation({
-  type: "pattern", // decision | bugfix | pattern | discovery | warning
-  title: "Brief description",
-  narrative: "Context and reasoning...",
-  facts: "key, facts, here",
-  concepts: "searchable, keywords",
-  files_modified: "src/file.ts",
+// Save durable memory conclusions via Honcho
+honcho_create_conclusion({
+  context: "Brief description of the finding",
+  data: {
+    type: "pattern",
+    narrative: "Context and reasoning...",
+    keywords: "searchable, concepts",
+  },
 });
 ```
 
 ### Reset Phase — Save Handoff
 
 ```typescript
-// Document what happened for next session
-memory_update({
-  file: "handoffs/YYYY-MM-DD-task",
-  content: "## Completed\n- X\n\n## Blockers\n- Y\n\n## Next\n- Z",
-  mode: "append",
+// Persist session summary to Honcho
+honcho_create_conclusion({
+  context: "Session handoff for <task>",
+  data: { completed: "...", blockers: "...", next: "..." },
 });
 ```
 
-**Only leader agents create observations.** Subagents report findings; you record them.
+**Only leader agents create conclusions.** Subagents report findings; you record them.
 
 ## Rules
 
@@ -206,16 +204,16 @@ skill({ name: "verification-before-completion" });
 
 Load contextually when needed:
 
-| Work Type              | Skills                                                     |
-| ---------------------- | ---------------------------------------------------------- |
-| Planning artifacts     | `executing-plans`, `writing-plans`                         |
-| Debug/bug work         | `systematic-debugging`, `root-cause-tracing`               |
-| Test-heavy work        | `test-driven-development`, `testing-anti-patterns`         |
-| Frontend/UI coding     | `frontend-implementation-quality`, `react-best-practices`, `ux-quality-gates`, `accessibility-audit` |
-| Visual critique/Figma/image work | install `extras/ui-pack` first                    |
-| Parallel orchestration | install `extras/autonomous-pack` first                     |
-| Before completion      | `requesting-code-review`, `finishing-a-development-branch` |
-| Codebase exploration   | `code-search-patterns`                                     |
+| Work Type                        | Skills                                                                                               |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Planning artifacts               | `executing-plans`, `writing-plans`                                                                   |
+| Debug/bug work                   | `systematic-debugging`, `root-cause-tracing`                                                         |
+| Test-heavy work                  | `test-driven-development`, `testing-anti-patterns`                                                   |
+| Frontend/UI coding               | `frontend-implementation-quality`, `react-best-practices`, `ux-quality-gates`, `accessibility-audit` |
+| Visual critique/Figma/image work | install `extras/ui-pack` first                                                                       |
+| Parallel orchestration           | install `extras/autonomous-pack` first                                                               |
+| Before completion                | `requesting-code-review`, `finishing-a-development-branch`                                           |
+| Codebase exploration             | `code-search-patterns`                                                                               |
 
 ## Execution Mode
 

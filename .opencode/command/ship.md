@@ -16,7 +16,6 @@ Execute PRD tasks, verify each passes, run review, close the bead.
 
 ```typescript
 skill({ name: "beads" });
-skill({ name: "memory-grounding" });
 skill({ name: "workspace-setup" });
 skill({ name: "verification-before-completion" });
 skill({ name: "reflection-checkpoints" }); // Mid-point + completion checks during execution
@@ -53,9 +52,14 @@ skill({ name: "frontend-implementation-quality" }); // For frontend/UI work
 
 ## Phase 1: Guards
 
-### Memory Grounding
+### Honcho Grounding
 
-Follow the [memory-grounding](../skill/memory-grounding/SKILL.md) skill protocol. Focus on: failed approaches to avoid repeating.
+Search Honcho for prior context (if installed):
+
+```typescript
+honcho_search({ query: "<bead keywords>", limit: 3 });
+honcho_chat({ query: "What failed approaches were tried for <feature>?" });
+```
 
 ### Bead Validation
 
@@ -90,10 +94,10 @@ Follow the [workspace-setup](../skill/workspace-setup/SKILL.md) skill protocol.
 
 ## Phase 2: Route to Execution
 
-| Artifact exists | Action                                                   |
-| --------------- | -------------------------------------------------------- |
-| `plan.md`       | Load `executing-plans` skill, follow its batch process   |
-| `prd.json`      | Proceed to PRD task loop below                           |
+| Artifact exists | Action                                                                         |
+| --------------- | ------------------------------------------------------------------------------ |
+| `plan.md`       | Load `executing-plans` skill, follow its batch process                         |
+| `prd.json`      | Proceed to PRD task loop below                                                 |
 | Only `prd.md`   | Read tasks directly from `prd.md`; optional product-pack can create `prd.json` |
 
 ## Phase 3: Wave-Based Execution
