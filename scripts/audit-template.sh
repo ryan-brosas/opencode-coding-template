@@ -75,11 +75,53 @@ check "no ghost /start references in active workflow docs" bash -c 'paths=(.open
 
 check "generated plan artifacts not tracked" bash -c '! git ls-files ".opencode/plans/*.md" | grep -v "README.md" | grep -q .'
 
-check "focused default counts" bash -c '[ "$(find .opencode/agent -maxdepth 1 -name "*.md" | wc -l | tr -d " ")" = 6 ] && [ "$(find .opencode/command -maxdepth 1 -name "*.md" | wc -l | tr -d " ")" = 10 ] && [ "$(find .opencode/plugin -maxdepth 1 -name "*.ts" | wc -l | tr -d " ")" = 3 ]'
+check "focused default inventory exact" python3 - <<'PY'
+from pathlib import Path
+import sys
+expected = {
+    Path('.opencode/agent'): {'build.md', 'explore.md', 'general.md', 'plan.md', 'review.md', 'scout.md'},
+    Path('.opencode/command'): {'create.md', 'handoff.md', 'iterate.md', 'plan.md', 'pr.md', 'resume.md', 'review-codebase.md', 'ship.md', 'status.md', 'verify.md'},
+    Path('.opencode/plugin'): {'memory.ts', 'sessions.ts', 'skill-mcp.ts'},
+}
+errors=[]
+for directory, names in expected.items():
+    pattern = '*.ts' if directory.name == 'plugin' else '*.md'
+    actual = {p.name for p in directory.glob(pattern)}
+    if actual != names:
+        errors.append(f'{directory}: expected {sorted(names)}, got {sorted(actual)}')
+if errors:
+    print('\n'.join(errors), file=sys.stderr)
+    sys.exit(1)
+PY
 
 check "optional packs exist" bash -c '[ -d extras/ui-pack ] && [ -d extras/cloud-pack ] && [ -d extras/research-pack ] && [ -d extras/product-pack ] && [ -d extras/autonomous-pack ]'
 
-check "optional power workflows are not active by default" bash -c '[ ! -f .opencode/agent/painter.md ] && [ ! -f .opencode/agent/vision.md ] && [ ! -f .opencode/command/ui-review.md ] && [ ! -f .opencode/command/lfg.md ] && [ ! -f .opencode/command/compound.md ] && [ ! -f .opencode/plugin/copilot-auth.ts ] && [ ! -f .opencode/plugin/prompt-leverage.ts ] && [ ! -f .opencode/plugin/rtk.ts ]'
+check "optional workflows are not active by default" python3 - <<'PY'
+from pathlib import Path
+import sys
+forbidden = [
+    '.opencode/agent/painter.md',
+    '.opencode/agent/vision.md',
+    '.opencode/command/compound.md',
+    '.opencode/command/curate.md',
+    '.opencode/command/design.md',
+    '.opencode/command/health.md',
+    '.opencode/command/init.md',
+    '.opencode/command/init-context.md',
+    '.opencode/command/init-user.md',
+    '.opencode/command/lfg.md',
+    '.opencode/command/research.md',
+    '.opencode/command/ui-review.md',
+    '.opencode/command/ui-slop-check.md',
+    '.opencode/plugin/copilot-auth.ts',
+    '.opencode/plugin/prompt-leverage.ts',
+    '.opencode/plugin/rtk.ts',
+]
+present = [p for p in forbidden if Path(p).exists()]
+if present:
+    print('\n'.join(present), file=sys.stderr)
+    sys.exit(1)
+PY
 
 check "no duplicated active files in extras" python3 - <<'PY'
 from pathlib import Path
