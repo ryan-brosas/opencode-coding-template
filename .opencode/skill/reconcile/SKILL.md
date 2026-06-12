@@ -22,7 +22,7 @@ dependencies: [verification-before-completion]
 
 - During active implementation (wait until tasks are done)
 - For code quality issues (use `requesting-code-review` instead)
-- For structural config audits (use `/health` instead)
+- For structural config audits (use project-specific checks or optional product-pack `/health` instead)
 
 ## Overview
 
@@ -173,7 +173,7 @@ Scope Creep = Extra files modified / Total files modified × 100
 ## Integration Points
 
 - **`/ship` Phase 5**: Run reconcile after review, before close decision
-- **`/compound`**: Include adherence score in retrospective observations
+- **Retrospectives**: Include adherence score in bead comments, memory, or optional compound observations
 - **`/pr`**: Include drift report in PR description
 
 ## Gotchas

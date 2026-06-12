@@ -1,7 +1,7 @@
 ---
 name: reflection-checkpoints
 description: >
-  Use when executing long-running commands (/ship, /lfg) to add self-assessment
+  Use when executing long-running commands such as /ship or optional autonomous workflows to add self-assessment
   checkpoints that detect scope drift, stalled progress, and premature completion claims.
   Inspired by ByteRover's reflection prompt architecture.
 version: 1.0.0
@@ -14,7 +14,7 @@ dependencies: [verification-before-completion]
 ## When to Use
 
 - During `/ship` execution after completing 50%+ of tasks
-- During `/lfg` at each phase transition (Plan→Work→Review→Compound)
+- During optional autonomous workflows at each phase transition (Plan→Work→Review→Retrospective)
 - When a task takes significantly longer than estimated
 - When context usage exceeds 60% of budget
 
@@ -109,7 +109,7 @@ Long-running autonomous execution drifts silently. By the time you notice, you'v
 
 ### 4. Phase Transition Check
 
-**Trigger:** At `/lfg` phase boundaries (Plan→Work, Work→Review, Review→Compound)
+**Trigger:** At optional autonomous workflow phase boundaries (Plan→Work, Work→Review, Review→Retrospective)
 
 ```
 ## 🔄 Phase Transition: [Previous] → [Next]
@@ -143,7 +143,7 @@ if (completedTasks === midpoint) {
 
 Before each task completion claim, run **Completion Check** (lightweight — just the evidence audit).
 
-### In `/lfg` (phase transitions)
+### In optional autonomous workflows (phase transitions)
 
 At each step boundary (Plan→Work, Work→Review, Review→Compound), run **Phase Transition Check**.
 

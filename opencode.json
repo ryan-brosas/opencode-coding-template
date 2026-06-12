@@ -28,6 +28,10 @@
     "scout": {
       "description": "External research specialist for library docs and patterns",
       "model": "{env:OPENCODE_SMALL_MODEL}"
+    },
+    "vision": {
+      "description": "Frontend UI, accessibility, and visual correctness review specialist",
+      "model": "{env:OPENCODE_SMALL_MODEL}"
     }
   },
   "autoupdate": false,
@@ -501,7 +505,7 @@
     }
   },
   "share": "manual",
-  "small_model": "makora/qwen3.6-27b-nvfp4",
+  "small_model": "{env:OPENCODE_SMALL_MODEL}",
   "watcher": {
     "ignore": [
       "node_modules/**",

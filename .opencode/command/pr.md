@@ -120,34 +120,52 @@ git push -u origin $(git branch --show-current)
 # Verify gh CLI is installed
 command -v gh >/dev/null 2>&1 || { echo "Error: gh CLI not found. Install: https://cli.github.com"; exit 1; }
 
-gh pr create --title "<title>" --body "$(cat <<'EOF'
+BRANCH="$(git branch --show-current)"
+PR_TITLE="${BRANCH}"
+
+# If a bead ID was provided, prefer the bead title.
+if [ -n "$ARGUMENTS" ] && command -v br >/dev/null 2>&1; then
+  BEAD_TITLE="$(br show "$ARGUMENTS" --json 2>/dev/null | jq -r '.title // empty' 2>/dev/null || true)"
+  [ -n "$BEAD_TITLE" ] && PR_TITLE="$BEAD_TITLE"
+fi
+
+PR_BODY_FILE="$(mktemp)"
+cat >"$PR_BODY_FILE" <<'EOF'
 ## Summary
 
 [1-2 sentences: what this PR does and why]
 
 ## Changes
 
-- `file.ts`: [what changed]
-- `other.ts`: [what changed]
+- [Summarize the main changed files/components from git diff]
 
 ## Testing
 
-- All tests pass
-- Lint and typecheck pass
+- [List verification commands and outcomes]
 - Manual verification: [how to test]
 
 ## Checklist
 
-- [x] Tests added/updated
-- [x] All gates pass
+- [x] Tests added/updated where appropriate
+- [x] Verification gates pass
 - [ ] Docs updated (if applicable)
 EOF
-)"
+
+# If bead ID provided, add artifacts section linking to `.beads/artifacts/$ARGUMENTS/prd.md`.
+if [ -n "$ARGUMENTS" ]; then
+  cat >>"$PR_BODY_FILE" <<EOF
+
+## Traceability
+
+- Bead: \`$ARGUMENTS\`
+- PRD: \`.beads/artifacts/$ARGUMENTS/prd.md\` if present
+EOF
+fi
+
+gh pr create --title "$PR_TITLE" --body-file "$PR_BODY_FILE"
 ```
 
-If `--draft`, add `--draft` flag.
-
-If bead ID provided, add artifacts section linking to `.beads/artifacts/$ARGUMENTS/prd.md`.
+If `--draft`, add `--draft` flag to `gh pr create`.
 
 ## Output
 

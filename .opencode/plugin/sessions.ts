@@ -126,6 +126,83 @@ const ROLE_LIST = SEARCH_CONFIG.roles.map((r) => `'${r}'`).join(",");
 export const SessionsPlugin: Plugin = async () => {
 	return {
 		tool: {
+			list_recent_sessions: tool({
+				description: `List recent OpenCode sessions without a search query.
+
+Example:
+list_recent_sessions({ limit: 5 })`,
+				args: {
+					limit: tool.schema
+						.number()
+						.optional()
+						.describe("Max results (default: 6, max: 12)"),
+				},
+				async execute(args: { limit?: number }) {
+					const { db, error } = openReadonlyDb();
+					if (!db) {
+						return JSON.stringify({
+							error: "DB_OPEN_FAILED",
+							message: error,
+							dbPath: DEFAULT_DB_PATH,
+						});
+					}
+
+					try {
+						const limit = Math.min(
+							args.limit || SEARCH_CONFIG.defaultLimit,
+							SEARCH_CONFIG.maxLimit,
+						);
+						const sessions = db
+							.prepare(
+								`SELECT s.id, s.title, s.directory, s.slug,
+								        s.time_created, s.time_updated,
+								        p.worktree, p.name AS project_name
+								 FROM session s
+								 LEFT JOIN project p ON p.id = s.project_id
+								 ORDER BY COALESCE(s.time_updated, s.time_created) DESC
+								 LIMIT ?`,
+							)
+							.all(limit) as Array<{
+							id: string;
+							title: string;
+							directory: string;
+							slug: string;
+							time_created: number;
+							time_updated: number | null;
+							worktree: string | null;
+							project_name: string | null;
+						}>;
+
+						return JSON.stringify({
+							sessions: sessions.map((s) => ({
+								sessionId: s.id,
+								title: s.title,
+								slug: s.slug,
+								directory: s.directory,
+								projectName: s.project_name,
+								projectWorktree: s.worktree,
+								timeCreated: s.time_created
+									? formatTime(s.time_created)
+									: null,
+								timeUpdated: s.time_updated
+									? formatTime(s.time_updated)
+									: null,
+							})),
+							stats: { totalSessions: sessions.length, limit },
+							nextStep: {
+								message: "Use read_session with a sessionId to inspect the full transcript.",
+								suggestedCalls: sessions.slice(0, 3).map((s) => ({
+									tool: "read_session",
+									args: { session_id: s.id, limit: 60, order: "asc" },
+								})),
+							},
+						});
+					} finally {
+						db.close();
+					}
+				},
+			}),
+
 			find_sessions: tool({
 				description: `Search sessions by keyword.
 	

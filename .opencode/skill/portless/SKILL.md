@@ -86,7 +86,7 @@ When approved and useful for a local web task:
 - `/ship`: use Portless during Phase 4 only if approved and relevant; never auto-install or auto-start it.
 - `/verify`: may use read-only `portless list` / `portless get` evidence and approved stable URLs for manual or browser checks.
 - `/status`: may include `portless list` if installed; no Portless mutations from status.
-- `/lfg`: inherits Portless behavior through `/plan`, `/ship`, and `/verify`; do not add a separate Portless branch.
+- Optional autonomous workflows inherit Portless behavior through `/plan`, `/ship`, and `/verify`; do not add a separate Portless branch.
 
 ## Reporting
 

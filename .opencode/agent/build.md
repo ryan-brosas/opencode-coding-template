@@ -211,7 +211,8 @@ Load contextually when needed:
 | Planning artifacts     | `executing-plans`, `writing-plans`                         |
 | Debug/bug work         | `systematic-debugging`, `root-cause-tracing`               |
 | Test-heavy work        | `test-driven-development`, `testing-anti-patterns`         |
-| UI work                | install `extras/ui-pack` first                             |
+| Frontend/UI coding     | `frontend-design`, `react-best-practices`, `ux-quality-gates`, `accessibility-audit` |
+| Visual/Figma/image work | install `extras/ui-pack` first                            |
 | Parallel orchestration | install `extras/autonomous-pack` first                     |
 | Before completion      | `requesting-code-review`, `finishing-a-development-branch` |
 | Codebase exploration   | `code-search-patterns`                                     |

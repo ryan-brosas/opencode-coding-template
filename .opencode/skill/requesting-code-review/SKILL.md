@@ -380,7 +380,7 @@ Do not claim review is resolved until fresh verification passes.
 | ------- | ------------------------------------ |
 | `/ship` | After work is complete and verified  |
 | `/pr`   | Before pushing or opening PR         |
-| `/lfg`  | Between execution and compound steps |
+| Optional autonomous workflow | Between execution and retrospective steps |
 
 ## Common Mistakes
 
@@ -392,7 +392,7 @@ Do not claim review is resolved until fresh verification passes.
 
 ## After Review: Compound
 
-Run `/compound` after resolving review findings to capture:
+After resolving review findings, capture the retrospective in bead comments or use the optional `extras/autonomous-pack` compound workflow to capture:
 
 - Patterns review caught that should be prevented earlier
 - False positives that should not be repeated

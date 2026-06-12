@@ -20,7 +20,7 @@ skill({ name: "memory-grounding" });
 skill({ name: "workspace-setup" });
 skill({ name: "verification-before-completion" });
 skill({ name: "reflection-checkpoints" }); // Mid-point + completion checks during execution
-// UI/browser helpers live in extras/ui-pack and are optional.
+// For frontend work, use core UX/accessibility checks; browser automation remains optional in extras/ui-pack.
 ```
 
 ## Determine Input Type
@@ -247,8 +247,8 @@ git diff --name-only $BASE_SHA...HEAD -- \
 
 If any UI files changed:
 
-1. If extras/ui-pack is installed, load the UX quality gates skill; otherwise use the verification checklist inline.
-2. Run `/ui-slop-check auto --since=$BASE_SHA` or manually apply its checklist when slash-command invocation is unavailable.
+1. Load `skill({ name: "ux-quality-gates" })` and apply the relevant UX/accessibility checks.
+2. Run `/ui-review <changed-ui-path-or-screenshot>` or manually apply its checklist when slash-command invocation is unavailable.
 3. Verify UX gates for changed surfaces:
    - One primary action per view/section
    - Empty/loading/error/success states for async/data flows
@@ -278,7 +278,7 @@ Wait for all 5 agents to return. Synthesize findings.
 
 - Critical issues → fix inline, re-run Phase 4 verification, continue
 - Important issues → fix inline, continue
-- Minor issues → add to bead comments, note for `/compound` step
+- Minor issues → add to bead comments; optionally capture learnings with `extras/autonomous-pack` compound workflow
 
 If review finds critical issues that require architectural decisions → stop → present options to user.
 
@@ -341,7 +341,7 @@ br close $ARGUMENTS --reason "Shipped: all PRD tasks pass, verification + review
 br sync --flush-only
 ```
 
-Record significant learnings with `/compound $ARGUMENTS` after closing.
+Record significant learnings in bead comments or memory. If `extras/autonomous-pack` is installed, `/compound $ARGUMENTS` can run the fuller retrospective.
 
 ## Output
 

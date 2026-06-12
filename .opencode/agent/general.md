@@ -215,6 +215,5 @@ Delegate to:
 - `@scout` for external research
 - `@review` for deep debugging/security review
 - `@plan` for architecture or decomposition
-- `@vision` for UI/UX analysis
-- PDF extraction → use `pdf-extract` skill
-- `@painter` for image generation/editing
+- `@vision` for frontend UI/accessibility analysis
+- Optional extras: PDF extraction (`extras/research-pack`) and image generation/editing via `@painter` (`extras/ui-pack`)

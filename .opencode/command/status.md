@@ -44,7 +44,8 @@ skill({ name: "beads" });
 | --------------- | ----------------------------------------------- |
 | `br`            | Task status and stats                           |
 | `git`           | Git state and history                           |
-| `find_sessions` | Recent sessions                                 |
+| `list_recent_sessions` | Recent sessions without requiring a query       |
+| `find_sessions` | Search sessions by project/bead/task keywords    |
 | `portless`      | Optional read-only local URL state if installed |
 
 ## Phase 1: Gather State (Parallel)
@@ -72,7 +73,9 @@ if command -v portless >/dev/null 2>&1; then portless list; fi
 Do not install Portless, start/stop proxies, trust CAs, sync hosts, prune/clean state, or expose LAN services from `/status`.
 
 ```typescript
-find_sessions({ query: "<project-name or recent-bead-keywords>", limit: 5 });
+list_recent_sessions({ limit: 5 });
+// If you need targeted history, use:
+// find_sessions({ query: "<project-name or recent-bead-keywords>", limit: 5 });
 ```
 
 ---
@@ -95,8 +98,8 @@ GIT
   Changes: [from git status, or "clean"]
   Recent:  [from git log]
 
-SESSIONS TODAY
-  [from find_sessions]
+RECENT SESSIONS
+  [from list_recent_sessions]
 ```
 
 ---

@@ -12,7 +12,7 @@ Search institutional memory before executing any command that modifies state or 
 
 ## When to Use
 
-- At the start of `/ship`, `/plan`, `/create`, `/pr`, `/research`, `/resume`
+- At the start of `/ship`, `/plan`, `/create`, `/pr`, `/resume`, and optional research workflows
 - Before any command that benefits from prior context
 - When you need to check if work was already done or decisions already made
 
@@ -64,5 +64,5 @@ find_sessions({ query: "$ARGUMENTS", limit: 3 });
 | `/ship`     | Search for failed approaches to avoid repeating        |
 | `/create`   | Search for duplicate beads before creating             |
 | `/pr`       | Include findings in PR description                     |
-| `/research` | Search before spawning agents; narrow scope to gaps    |
+| Optional research workflow | Search before spawning agents; narrow scope to gaps    |
 | `/resume`   | Read handoff file by bead ID; check session history    |

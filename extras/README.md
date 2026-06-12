@@ -1,6 +1,6 @@
 # Optional OpenCode Packs
 
-The default `.opencode/` tree is intentionally focused on coding. These packs contain useful but non-core assets. They are not loaded by OpenCode unless you copy them into `.opencode/`.
+The default `.opencode/` tree is intentionally focused on coding, including frontend implementation and accessibility/UI QA. These packs contain useful but non-core assets. They are not loaded by OpenCode unless you copy them into `.opencode/`.
 
 ## Install a Pack
 
@@ -16,7 +16,7 @@ Review files before installing. Some packs may require optional API keys from `e
 
 ## Packs
 
-- `ui-pack` — design, visual, Figma, browser, React/UI helpers
+- `ui-pack` — optional visual design, Figma, image generation, browser automation, and mockup workflows
 - `cloud-pack` — Cloudflare, Supabase, Resend, Polar, Vercel helpers
 - `research-pack` — deep research, context engineering, Webclaw, prompt leverage
 - `product-pack` — PRD, brainstorming, init/explore/health commands

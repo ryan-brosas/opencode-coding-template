@@ -16,6 +16,8 @@ check() {
 check "root opencode.json exists" test -f opencode.json
 check "root tui.json exists" test -f tui.json
 check "no nested active opencode config" test ! -f .opencode/opencode.json
+check "no nested active tui config" test ! -f .opencode/tui.json
+check "no nested env example" test ! -f .opencode/.env.example
 check "opencode.json parses" bash -c 'python3 -m json.tool opencode.json >/dev/null'
 check "tui.json parses" bash -c 'python3 -m json.tool tui.json >/dev/null'
 
@@ -67,9 +69,36 @@ check "no ghost /start references in active workflow docs" bash -c 'paths=(.open
 
 check "generated plan artifacts not tracked" bash -c '! git ls-files ".opencode/plans/*.md" | grep -v "README.md" | grep -q .'
 
-check "focused default counts" bash -c '[ "$(find .opencode/agent -maxdepth 1 -name "*.md" | wc -l | tr -d " ")" = 6 ] && [ "$(find .opencode/command -maxdepth 1 -name "*.md" | wc -l | tr -d " ")" = 10 ] && [ "$(find .opencode/plugin -maxdepth 1 -name "*.ts" | wc -l | tr -d " ")" = 3 ]'
+check "focused default counts" bash -c '[ "$(find .opencode/agent -maxdepth 1 -name "*.md" | wc -l | tr -d " ")" = 7 ] && [ "$(find .opencode/command -maxdepth 1 -name "*.md" | wc -l | tr -d " ")" = 11 ] && [ "$(find .opencode/plugin -maxdepth 1 -name "*.ts" | wc -l | tr -d " ")" = 3 ]'
 
 check "optional packs exist" bash -c '[ -d extras/ui-pack ] && [ -d extras/cloud-pack ] && [ -d extras/research-pack ] && [ -d extras/product-pack ] && [ -d extras/autonomous-pack ]'
+
+check "optional power workflows are not active by default" bash -c '[ ! -f .opencode/agent/painter.md ] && [ ! -f .opencode/command/lfg.md ] && [ ! -f .opencode/command/compound.md ] && [ ! -f .opencode/plugin/copilot-auth.ts ] && [ ! -f .opencode/plugin/prompt-leverage.ts ] && [ ! -f .opencode/plugin/rtk.ts ]'
+
+check "no duplicated active files in extras" python3 - <<'PY'
+from pathlib import Path
+import sys
+checks = [
+    (Path('.opencode/agent'), 'agent', '*.md'),
+    (Path('.opencode/command'), 'command', '*.md'),
+    (Path('.opencode/plugin'), 'plugin', '*.ts'),
+]
+dupes=[]
+for active_dir, subdir, pattern in checks:
+    active_names = {p.name for p in active_dir.glob(pattern)}
+    for extra_dir in Path('extras').glob(f'*/{subdir}'):
+        for p in extra_dir.glob(pattern):
+            if p.name in active_names:
+                dupes.append(f'{p.name}: {active_dir} and {extra_dir}')
+active_skills = {p.name for p in Path('.opencode/skill').iterdir() if p.is_dir()}
+for extra_skill_dir in Path('extras').glob('*/skill'):
+    for p in extra_skill_dir.iterdir():
+        if p.is_dir() and p.name in active_skills:
+            dupes.append(f'{p.name}: .opencode/skill and {extra_skill_dir}')
+if dupes:
+    print('\n'.join(dupes), file=sys.stderr)
+    sys.exit(1)
+PY
 
 check "active skill calls resolve" python3 - <<'PY'
 from pathlib import Path

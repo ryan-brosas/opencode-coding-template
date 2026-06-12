@@ -20,7 +20,7 @@ Create a detailed implementation plan with TDD steps. Optional deep-planning bet
 skill({ name: "beads" });
 skill({ name: "memory-grounding" });
 skill({ name: "writing-plans" }); // TDD plan format
-// UI quality helpers live in extras/ui-pack and are optional.
+// For frontend work, use core `ux-quality-gates` and `accessibility-audit` checks.
 ```
 
 ## Parse Arguments
@@ -433,4 +433,4 @@ br comments add $ARGUMENTS "Created plan.md: Level [N] discovery, [X] waves, [Y]
 | -------------- | ------------ |
 | Create spec    | `/create`    |
 | Execute plan   | `/ship <id>` |
-| Research first | `/research`  |
+| Research first | Use `@scout`, or install `extras/research-pack` for `/research` |

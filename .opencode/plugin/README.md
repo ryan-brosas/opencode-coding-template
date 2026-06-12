@@ -26,7 +26,7 @@ plugin/
   - Provides memory tools such as observation, memory-search, memory-get, memory-read, memory-update, memory-timeline, memory graph, compaction, and admin operations
 
 - `sessions.ts`
-  - Provides tools: `find_sessions`, `read_session`
+  - Provides tools: `list_recent_sessions`, `find_sessions`, `read_session`
   - Direct SQLite access to OpenCode's session DB
   - Multi-word AND search with relevance ranking
   - 180-day time-bounded search

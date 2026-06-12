@@ -10,7 +10,7 @@ Refine a bead's PRD during active implementation. Two-phase process: define what
 
 > **When to use:** Mid-`/ship` when you discover scope changed, requirements shifted, or a technical discovery invalidates the original plan.
 >
-> **NOT for:** Pre-implementation changes (use `/create` to rewrite the PRD) or post-implementation retrospectives (use `/compound`).
+> **NOT for:** Pre-implementation changes (use `/create` to rewrite the PRD) or post-implementation retrospectives (install `extras/autonomous-pack` if you want `/compound`).
 
 ## Load Skills
 
@@ -196,4 +196,4 @@ Output:
 | Create initial spec        | `/create`          |
 | Continue shipping          | `/ship <id>`       |
 | Review after changes       | `/review-codebase` |
-| Post-implementation review | `/compound <id>`   |
+| Post-implementation review | Optional: install `extras/autonomous-pack`, then `/compound <id>` |

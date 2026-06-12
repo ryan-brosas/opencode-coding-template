@@ -1,6 +1,6 @@
 # OpenCode Template Assets
 
-This directory contains the focused default OpenCode assets that sit beside the root project config.
+This directory contains the focused default OpenCode assets that sit beside the root project config. Frontend implementation, accessibility, and UI QA are part of the coding core; pure visual design/Figma/asset workflows are optional extras.
 
 > Active config lives at the project root: `opencode.json` and `tui.json`.
 > Keep those root files with `.opencode/` when installing the template.
@@ -10,9 +10,9 @@ This directory contains the focused default OpenCode assets that sit beside the 
 ```text
 .opencode/
 ├── AGENTS.md                # Global operating rules for agents
-├── agent/                   # 6 user-facing core agent prompt files
-├── command/                 # 10 core slash command files
-├── skill/                   # Focused coding/workflow skill baseline
+├── agent/                   # 7 user-facing core agent prompt files
+├── command/                 # 11 core slash command files
+├── skill/                   # Focused coding/frontend/workflow skill baseline
 ├── tool/                    # Custom tools: context7.ts, grepsearch.ts
 ├── plugin/                  # Core local OpenCode plugins
 ├── memory/                  # Project memory templates and seed files
@@ -47,12 +47,12 @@ find .opencode/tool -maxdepth 1 -name '*.ts' | sort
 
 Current default inventory:
 
-- Agents: build, explore, general, plan, review, scout (plus config-only compaction summarizer)
-- Commands: create, plan, iterate, verify, ship, review-codebase, status, resume, handoff, pr
+- Agents: build, explore, general, plan, review, scout, vision (plus config-only compaction summarizer)
+- Commands: create, plan, iterate, verify, ship, review-codebase, ui-review, status, resume, handoff, pr
 - Custom tools: `context7.ts`, `grepsearch.ts`
 - Local plugins: `memory.ts`, `sessions.ts`, `skill-mcp.ts`
 
-Optional UI/design, cloud/vendor, research/context, product/org, language, integration, and autonomous assets live under `extras/`.
+Optional visual design, Figma, image generation, cloud/vendor, research/context, product/org, language, integration, and autonomous assets live under `extras/`.
 
 ## Tools vs Plugin-Provided Tools
 

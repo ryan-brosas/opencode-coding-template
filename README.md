@@ -1,6 +1,6 @@
 # OpenCode Coding Template
 
-A reusable [OpenCode](https://opencode.ai) project template for AI-assisted software development. The default install is now a focused coding baseline; UI, cloud, product, research, language, and autonomous workflows live in optional `extras/` packs.
+A reusable [OpenCode](https://opencode.ai) project template for AI-assisted software development. The default install is a focused coding baseline including backend and frontend engineering; pure visual design, Figma/asset workflows, cloud, product, research, language, and autonomous workflows live in optional `extras/` packs.
 
 ## What's Inside
 
@@ -10,9 +10,9 @@ A reusable [OpenCode](https://opencode.ai) project template for AI-assisted soft
 | `tui.json` | TUI keybindings and display settings |
 | `.env.example` | Minimal environment template |
 | `env.integrations.example` | Optional API keys and MCP integrations |
-| `.opencode/agent/` | 6 user-facing core agents: build, plan, explore, review, scout, general (plus config-only compaction summarizer) |
-| `.opencode/command/` | 10 core slash commands for create/plan/iterate/verify/ship/pr |
-| `.opencode/skill/` | Focused coding/workflow skill baseline |
+| `.opencode/agent/` | 7 user-facing core agents: build, plan, explore, review, scout, general, vision (plus config-only compaction summarizer) |
+| `.opencode/command/` | 11 core slash commands for create/plan/iterate/verify/ship/pr plus frontend review |
+| `.opencode/skill/` | Focused coding/frontend/workflow skill baseline |
 | `.opencode/plugin/` | Core local plugins: memory, sessions, skill MCP |
 | `.opencode/tool/` | Custom tools: Context7 and grep search |
 | `.beads/` | Beads task-tracking seed/config |
@@ -57,7 +57,7 @@ OpenCode expects `opencode.json` at the project root; this template puts the act
 Copy only the packs you want into `.opencode/`:
 
 ```bash
-# Example: add UI workflows
+# Example: add optional visual/design workflows
 cp -r extras/ui-pack/agent/* .opencode/agent/ 2>/dev/null || true
 cp -r extras/ui-pack/command/* .opencode/command/ 2>/dev/null || true
 cp -r extras/ui-pack/skill/* .opencode/skill/ 2>/dev/null || true
@@ -65,7 +65,7 @@ cp -r extras/ui-pack/skill/* .opencode/skill/ 2>/dev/null || true
 
 Available packs:
 
-- `extras/ui-pack` — design, visual, Figma, browser, React/UI helpers
+- `extras/ui-pack` — optional visual design, Figma, image, browser automation, and mockup workflows
 - `extras/cloud-pack` — Cloudflare, Supabase, Resend, Polar, Vercel helpers
 - `extras/research-pack` — deep research, context engineering, Webclaw, prompt leverage
 - `extras/product-pack` — PRD, brainstorming, init/explore/health commands
@@ -92,9 +92,8 @@ Minimal setup lives in `.env.example`:
 - `OPENCODE_MODEL`
 - `OPENCODE_SMALL_MODEL`
 - `OPENCODE_PLAN_MODEL`
-- provider credential helper values such as `MAKORA_API_KEY` if you use the bundled Makora example
 
-Optional services are documented in `env.integrations.example`.
+Provider auth is normally handled with `opencode auth login <provider>`. Optional service-specific API keys are documented in `env.integrations.example`.
 
 ## Beads Task Tracking
 

@@ -288,6 +288,6 @@ br comments add $BEAD_ID "Created prd.md with [N] tasks, [M] success criteria"
 
 | Need               | Command      |
 | ------------------ | ------------ |
-| Research first     | `/research`  |
+| Research first     | Use `@scout`, or install `extras/research-pack` for `/research` |
 | Plan after spec    | `/plan <id>` |
 | Implement and ship | `/ship <id>` |

@@ -12,13 +12,11 @@ tools:
   question: false
 permission:
   bash:
+    "git status": allow
     "git diff*": allow
-    "git status*": allow
     "git log*": allow
     "rg *": allow
     "grep *": allow
-    "find *": allow
-    "ls *": allow
     "npm run test": ask
     "npm run lint": ask
     "npm run typecheck": ask
