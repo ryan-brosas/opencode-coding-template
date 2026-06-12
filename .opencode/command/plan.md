@@ -20,7 +20,7 @@ Create a detailed implementation plan with TDD steps. Optional deep-planning bet
 skill({ name: "beads" });
 skill({ name: "memory-grounding" });
 skill({ name: "writing-plans" }); // TDD plan format
-// For user-facing UI work: skill({ name: "ux-quality-gates" });
+// UI quality helpers live in extras/ui-pack and are optional.
 ```
 
 ## Parse Arguments

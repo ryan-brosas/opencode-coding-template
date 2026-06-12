@@ -236,10 +236,10 @@ Use specialist agents by intent:
 | `@scout`   | External docs/research            |
 | `@review`  | Correctness/security/debug review |
 | `@plan`    | Architecture and execution plans  |
-| `@vision`  | UI/UX and accessibility judgment  |
-| `@painter` | Image generation/editing          |
 
-**Note:** PDF extraction → use `pdf-extract` skill; Images → use vision-capable model directly
+Optional UI agents (`@vision`, `@painter`) live in `extras/ui-pack/agent/` and are not loaded by default.
+
+**Note:** PDF extraction and browser/UI helpers live in optional packs; install the relevant pack before referencing those skills.
 
 **Parallelism rule**: Use parallel subagents for 3+ independent tasks; otherwise work sequentially.
 
@@ -359,18 +359,7 @@ For major tracked work:
 - **Skills** hold reusable procedures
 - **Agent prompts** stay role-focused; don't duplicate long checklists
 - **Load skills on demand**, not by default
-- **Auto-load on input** — The `prompt-leverage` skill is a pre-processing layer that activates on every meaningful user input to upgrade prompts before planning/execution
-
-### Pre-Processing Layer
-
-On every meaningful user input (not just greetings or确认):
-
-1. **Load `prompt-leverage`** skill
-2. Apply the seven-block framework to strengthen the user's prompt
-3. Preserve original intent; add only necessary structure
-4. Proceed with planning/execution using the upgraded prompt
-
-This ensures every prompt is execution-ready before work begins.
+- **Optional prompt pre-processing** — `prompt-leverage` lives in `extras/research-pack/skill/` and its plugin lives in `extras/integration-pack/plugin/`; install both only if you want that power-user behavior.
 
 ### Intent → Skill Mapping
 
@@ -378,44 +367,28 @@ When user intent is clear, load the appropriate skills:
 
 | Intent                                    | Phase          | Skills to Load                                                                                   |
 | ----------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------ |
-| "Build a feature"                         | Define → Build | `prd` → `writing-plans` → `incremental-implementation` + `test-driven-development`               |
+| "Build a feature"                         | Define → Build | `writing-plans` → `incremental-implementation` + `test-driven-development`                       |
 | "Fix a bug"                               | Verify         | `systematic-debugging` → `root-cause-tracing`                                                    |
 | "Review code"                             | Review         | `receiving-code-review` or `requesting-code-review`                                              |
 | "Simplify / refactor"                     | Review         | `code-simplification`                                                                            |
 | "Ship it"                                 | Ship           | `verification-before-completion` → `finishing-a-development-branch`                              |
-| "Plan this"                               | Plan           | `brainstorming` → `prd` → `writing-plans`                                                        |
-| "Execute a plan"                          | Build          | `executing-plans` + `subagent-driven-development`                                                |
+| "Plan this"                               | Plan           | `writing-plans`                                                                                  |
+| "Execute a plan"                          | Build          | `executing-plans`                                                                                |
 | "Debug flaky tests"                       | Verify         | `condition-based-waiting` + `systematic-debugging`                                               |
-| "Debug in browser"                        | Verify         | `chrome-devtools` or `playwright`                                                                |
+| "Debug in browser"                        | Verify         | Install `extras/ui-pack`, then use `chrome-devtools` or `playwright`                             |
 | "Use stable local URLs"                   | Verify         | `portless`                                                                                       |
 | "Write / fix tests"                       | Verify         | `test-driven-development` + `testing-anti-patterns`                                              |
-| "Build UI"                                | Build          | `frontend-design` + `design-taste-frontend`                                                      |
-| "Build UI from mockup"                    | Build          | `mockup-to-code` + `frontend-design`                                                             |
-| "Redesign existing UI"                    | Build          | `redesign-existing-projects` + `design-taste-frontend`                                           |
-| "Build branded design"                    | Build          | `brand-asset-protocol` + `anti-ai-slop` + (target skill: frontend-design / hi-fi-prototype-html) |
-| "Vague design brief"                      | Define         | `design-direction-advisor` + `anti-ai-slop`                                                      |
-| "Build hi-fi prototype"                   | Build          | `hi-fi-prototype-html` + `anti-ai-slop` + `playwright`                                           |
-| "Build slide deck"                        | Build          | `html-deck-export` + `anti-ai-slop` + (optional: `brand-asset-protocol`)                         |
-| "Avoid AI design defaults"                | Build / Review | `anti-ai-slop`                                                                                   |
-| "Review UI / UX"                          | Review         | `web-design-guidelines` + `visual-analysis` + `accessibility-audit`                              |
-| "Audit accessibility"                     | Verify         | `accessibility-audit`                                                                            |
-| "Build React / Next.js"                   | Build          | `react-best-practices` + `frontend-design`                                                       |
-| "Research X"                              | Define         | `deep-research` or `opensrc`                                                                     |
 | "Design an API"                           | Build          | `api-and-interface-design` + `documentation-and-adrs`                                            |
 | "Set up CI/CD"                            | Ship           | `ci-cd-and-automation` + `verification-gates`                                                    |
-| "Deploy app"                              | Ship           | `vercel-deploy-claimable`                                                                        |
 | "Deprecate / migrate"                     | Ship           | `deprecation-and-migration` + `incremental-implementation`                                       |
 | "Write docs / record ADR"                 | Define         | `documentation-and-adrs`                                                                         |
 | "Optimize performance"                    | Verify         | `performance-optimization`                                                                       |
-| "Optimize shell token usage"              | Build / Verify | `rtk-command-compression`                                                                        |
 | "Be terse / less words / caveman mode"    | Communication  | `terse-output-mode`                                                                              |
 | "Count / parse / inspect data via script" | Verify         | `think-in-code` + `verification-before-completion`                                               |
-| "Save context on browser snapshot"        | Verify         | `playwright` (Token Discipline section)                                                          |
 | "Harden security"                         | Verify         | `security-and-hardening` + `defense-in-depth`                                                    |
 | "Verify before merge"                     | Ship           | `reconcile` + `verification-gates`                                                               |
-| "Measure if a skill helps"                | Verify         | `agent-evals`                                                                                    |
-| "Compress / hand off context"             | Build          | `context-condensation` + `context-management`                                                    |
-| "Create a skill"                          | Build          | `skill-creator` + `writing-skills`                                                               |
+
+Optional UI, research, product, deployment, org, language, and autonomous mappings live in `extras/` packs.
 
 ---
 

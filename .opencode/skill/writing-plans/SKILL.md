@@ -303,7 +303,7 @@ After saving the plan, offer execution choice:
 **Which approach?"**
 
 **If Subagent-Driven chosen:**
-- **REQUIRED SUB-SKILL:** Use skill({ name: "subagent-driven-development" })
+- **Execution guidance:** Use `executing-plans` for default execution; install `extras/autonomous-pack` for subagent-driven development.
 - Stay in this session
 - Fresh subagent per task + code review
 
@@ -316,5 +316,4 @@ After saving the plan, offer execution choice:
 ## See Also
 
 - `executing-plans` - Execute vetted plans in controlled batches with checkpoints
-- `prd` - Convert validated design into explicit behavioral requirements
-- `brainstorming` - Refine rough ideas and constraints before specification/planning
+- Optional `extras/product-pack`: PRD and brainstorming helpers for product-heavy planning

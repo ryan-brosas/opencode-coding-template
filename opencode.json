@@ -17,10 +17,6 @@
       "description": "General-purpose subagent for fast, well-defined tasks; delegates complexity quickly",
       "model": "{env:OPENCODE_SMALL_MODEL}"
     },
-    "painter": {
-      "description": "Image generation and editing specialist using Gemini 3 Pro Image. Use for creating UI mockups, app icons, hero images, visual assets, and editing/redacting existing images",
-      "model": "{env:OPENCODE_SMALL_MODEL}"
-    },
     "plan": {
       "description": "Primary planning agent for architecture and multi-phase execution",
       "model": "{env:OPENCODE_PLAN_MODEL}"
@@ -32,10 +28,6 @@
     "scout": {
       "description": "External research specialist for library docs and patterns",
       "model": "{env:OPENCODE_SMALL_MODEL}"
-    },
-    "vision": {
-      "description": "Visual content specialist for multimodal analysis and UI/UX guidance",
-      "model": "{env:OPENCODE_SMALL_MODEL}"
     }
   },
   "autoupdate": false,
@@ -45,39 +37,108 @@
   },
   "formatter": {
     "biome": {
-      "command": ["npx", "@biomejs/biome", "check", "--write", "$FILE"],
-      "extensions": [".js", ".jsx", ".ts", ".tsx", ".json", ".jsonc"]
+      "command": [
+        "npx",
+        "@biomejs/biome",
+        "check",
+        "--write",
+        "$FILE"
+      ],
+      "extensions": [
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx",
+        ".json",
+        ".jsonc"
+      ]
     },
     "cargo-fmt": {
-      "command": ["cargo", "fmt", "--", "$FILE"],
-      "extensions": [".rs"]
+      "command": [
+        "cargo",
+        "fmt",
+        "--",
+        "$FILE"
+      ],
+      "extensions": [
+        ".rs"
+      ]
     },
     "java-formatter": {
-      "command": ["google-java-format", "--replace", "$FILE"],
+      "command": [
+        "google-java-format",
+        "--replace",
+        "$FILE"
+      ],
       "environment": {
         "JAVA_HOME": "{env:JAVA_HOME}"
       },
-      "extensions": [".java"]
+      "extensions": [
+        ".java"
+      ]
     },
     "laravel-pint": {
-      "command": ["npx", "laravel-pint", "--preset", "psr12", "$FILE"],
-      "extensions": [".php"]
+      "command": [
+        "npx",
+        "laravel-pint",
+        "--preset",
+        "psr12",
+        "$FILE"
+      ],
+      "extensions": [
+        ".php"
+      ]
     },
     "oxfmt": {
-      "command": ["npx", "oxfmt", "--write", "$FILE"],
-      "extensions": [".js", ".jsx", ".ts", ".tsx", ".json", ".jsonc", ".html", ".css", ".scss", ".sass", ".md", ".mdx", ".yaml", ".yml"]
+      "command": [
+        "npx",
+        "oxfmt",
+        "--write",
+        "$FILE"
+      ],
+      "extensions": [
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx",
+        ".json",
+        ".jsonc",
+        ".html",
+        ".css",
+        ".scss",
+        ".sass",
+        ".md",
+        ".mdx",
+        ".yaml",
+        ".yml"
+      ]
     }
   },
-  "instructions": [".opencode/memory/project/user.md", ".opencode/memory/project/tech-stack.md", ".opencode/memory/project/project.md", ".opencode/context/git-context.md"],
+  "instructions": [
+    ".opencode/memory/project/user.md",
+    ".opencode/memory/project/tech-stack.md",
+    ".opencode/memory/project/project.md",
+    ".opencode/context/git-context.md"
+  ],
   "mcp": {
     "figma-mcp-go": {
-      "command": ["npx", "-y", "@vkhanhqui/figma-mcp-go@latest"],
+      "command": [
+        "npx",
+        "-y",
+        "@vkhanhqui/figma-mcp-go@latest"
+      ],
       "enabled": false,
       "timeout": 120000,
       "type": "local"
     },
     "tilth": {
-      "command": ["npx", "-y", "tilth", "--mcp", "--edit"],
+      "command": [
+        "npx",
+        "-y",
+        "tilth",
+        "--mcp",
+        "--edit"
+      ],
       "enabled": false,
       "environment": {
         "TILTH_THREADS": "8"
@@ -86,7 +147,9 @@
       "type": "local"
     },
     "webclaw": {
-      "command": ["webclaw-mcp"],
+      "command": [
+        "webclaw-mcp"
+      ],
       "enabled": false,
       "timeout": 120000,
       "type": "local"
@@ -153,13 +216,17 @@
               "disabled": true
             },
             "high": {
-              "include": ["reasoning.encrypted_content"],
+              "include": [
+                "reasoning.encrypted_content"
+              ],
               "reasoningEffort": "high",
               "reasoningSummary": "auto",
               "textVerbosity": "low"
             },
             "medium": {
-              "include": ["reasoning.encrypted_content"],
+              "include": [
+                "reasoning.encrypted_content"
+              ],
               "reasoningEffort": "medium",
               "reasoningSummary": "auto",
               "textVerbosity": "low"
@@ -172,19 +239,25 @@
               "disabled": true
             },
             "high": {
-              "include": ["reasoning.encrypted_content"],
+              "include": [
+                "reasoning.encrypted_content"
+              ],
               "reasoningEffort": "high",
               "reasoningSummary": "auto",
               "textVerbosity": "low"
             },
             "medium": {
-              "include": ["reasoning.encrypted_content"],
+              "include": [
+                "reasoning.encrypted_content"
+              ],
               "reasoningEffort": "medium",
               "reasoningSummary": "auto",
               "textVerbosity": "low"
             },
             "xhigh": {
-              "include": ["reasoning.encrypted_content"],
+              "include": [
+                "reasoning.encrypted_content"
+              ],
               "reasoningEffort": "xhigh",
               "reasoningSummary": "auto",
               "textVerbosity": "low"
@@ -197,19 +270,25 @@
               "disabled": true
             },
             "high": {
-              "include": ["reasoning.encrypted_content"],
+              "include": [
+                "reasoning.encrypted_content"
+              ],
               "reasoningEffort": "high",
               "reasoningSummary": "auto",
               "textVerbosity": "low"
             },
             "medium": {
-              "include": ["reasoning.encrypted_content"],
+              "include": [
+                "reasoning.encrypted_content"
+              ],
               "reasoningEffort": "medium",
               "reasoningSummary": "auto",
               "textVerbosity": "low"
             },
             "xhigh": {
-              "include": ["reasoning.encrypted_content"],
+              "include": [
+                "reasoning.encrypted_content"
+              ],
               "reasoningEffort": "xhigh",
               "reasoningSummary": "auto",
               "textVerbosity": "low"
@@ -223,8 +302,13 @@
             "output": 128000
           },
           "modalities": {
-            "input": ["text", "image"],
-            "output": ["text"]
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
           },
           "options": {
             "reasoningEffort": "medium",
@@ -236,7 +320,9 @@
           "tool_call": true,
           "variants": {
             "high": {
-              "include": ["reasoning.encrypted_content"],
+              "include": [
+                "reasoning.encrypted_content"
+              ],
               "reasoningEffort": "high",
               "reasoningSummary": "auto"
             },
@@ -266,8 +352,12 @@
           "reasoning": true,
           "tool_call": true,
           "modalities": {
-            "input": ["text"],
-            "output": ["text"]
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
           },
           "limit": {
             "context": 1048576,
@@ -281,8 +371,12 @@
           "reasoning": true,
           "tool_call": true,
           "modalities": {
-            "input": ["text"],
-            "output": ["text"]
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
           },
           "limit": {
             "context": 1048576,
@@ -296,8 +390,12 @@
           "reasoning": true,
           "tool_call": true,
           "modalities": {
-            "input": ["text"],
-            "output": ["text"]
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
           },
           "limit": {
             "context": 131072,
@@ -311,8 +409,12 @@
           "reasoning": true,
           "tool_call": true,
           "modalities": {
-            "input": ["text"],
-            "output": ["text"]
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
           },
           "limit": {
             "context": 131072,
@@ -326,8 +428,12 @@
           "reasoning": true,
           "tool_call": true,
           "modalities": {
-            "input": ["text"],
-            "output": ["text"]
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
           },
           "limit": {
             "context": 262144,
@@ -341,8 +447,12 @@
           "reasoning": false,
           "tool_call": true,
           "modalities": {
-            "input": ["text"],
-            "output": ["text"]
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
           },
           "limit": {
             "context": 131072,
@@ -356,8 +466,12 @@
           "reasoning": true,
           "tool_call": true,
           "modalities": {
-            "input": ["text"],
-            "output": ["text"]
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
           },
           "limit": {
             "context": 262144,
@@ -371,8 +485,12 @@
           "reasoning": true,
           "tool_call": true,
           "modalities": {
-            "input": ["text"],
-            "output": ["text"]
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
           },
           "limit": {
             "context": 262144,
@@ -385,7 +503,17 @@
   "share": "manual",
   "small_model": "makora/qwen3.6-27b-nvfp4",
   "watcher": {
-    "ignore": ["node_modules/**", ".git/**", "dist/**", "build/**", "*.log", ".DS_Store"]
+    "ignore": [
+      "node_modules/**",
+      ".git/**",
+      "dist/**",
+      "build/**",
+      "*.log",
+      ".DS_Store"
+    ]
   },
-  "enabled_providers": ["openai", "makora"]
+  "enabled_providers": [
+    "openai",
+    "makora"
+  ]
 }

@@ -20,8 +20,7 @@ skill({ name: "memory-grounding" });
 skill({ name: "workspace-setup" });
 skill({ name: "verification-before-completion" });
 skill({ name: "reflection-checkpoints" }); // Mid-point + completion checks during execution
-// For user-facing UI changes: skill({ name: "ux-quality-gates" });
-// If local web/browser verification needs stable URLs: skill({ name: "portless" });
+// UI/browser helpers live in extras/ui-pack and are optional.
 ```
 
 ## Determine Input Type
@@ -94,7 +93,7 @@ Follow the [workspace-setup](../skill/workspace-setup/SKILL.md) skill protocol.
 | --------------- | -------------------------------------------------------- |
 | `plan.md`       | Load `executing-plans` skill, follow its batch process   |
 | `prd.json`      | Proceed to PRD task loop below                           |
-| Only `prd.md`   | Load `prd-task` skill to create `prd.json`, then proceed |
+| Only `prd.md`   | Read tasks directly from `prd.md`; optional product-pack can create `prd.json` |
 
 ## Phase 3: Wave-Based Execution
 
@@ -248,7 +247,7 @@ git diff --name-only $BASE_SHA...HEAD -- \
 
 If any UI files changed:
 
-1. Load `skill({ name: "ux-quality-gates" })`.
+1. If extras/ui-pack is installed, load the UX quality gates skill; otherwise use the verification checklist inline.
 2. Run `/ui-slop-check auto --since=$BASE_SHA` or manually apply its checklist when slash-command invocation is unavailable.
 3. Verify UX gates for changed surfaces:
    - One primary action per view/section

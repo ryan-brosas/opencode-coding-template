@@ -99,7 +99,7 @@ See: `references/EXAMPLES.md` for complete usage examples.
 
 ## Multi-Agent Coordination (Summary)
 
-For parallel execution with multiple subagents, use the **swarm-coordination** skill.
+For parallel execution with multiple subagents, install `extras/autonomous-pack` and use its swarm coordination skill.
 
 See: `references/MULTI_AGENT.md` for swarm tool usage and examples.
 
@@ -179,4 +179,4 @@ MAINTENANCE:
 ## See Also
 
 - `verification-before-completion`
-- `swarm-coordination`
+- Optional `extras/autonomous-pack` for swarm coordination

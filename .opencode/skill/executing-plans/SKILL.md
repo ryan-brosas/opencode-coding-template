@@ -17,7 +17,7 @@ dependencies: [writing-plans]
 
 ## When NOT to Use
 
-- No plan yet (use `writing-plans` or `prd` first)
+- No plan yet (use `writing-plans` first; optional product-pack has PRD helpers)
 - All tasks are tightly sequential with no parallelism opportunity
 - Fewer than 3 tasks (just execute directly, overhead not worth it)
 
@@ -242,6 +242,5 @@ This preserves backward compatibility with plans that don't have wave assignment
 ## See Also
 
 - `writing-plans` — Create detailed, zero-ambiguity implementation plans before execution
-- `swarm-coordination` — For 10+ task scenarios with full PARL orchestration
-- `subagent-driven-development` — For sequential per-task execution with review between each
+- Optional `extras/autonomous-pack`: swarm coordination and subagent-driven development workflows for large multi-agent plans
 - `verification-before-completion` — Run final verification gates before claiming completion

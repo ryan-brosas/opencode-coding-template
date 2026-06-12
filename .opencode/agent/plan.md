@@ -376,9 +376,9 @@ Load contextually:
 
 | Situation                              | Skill              |
 | -------------------------------------- | ------------------ |
-| Requirements ambiguous                 | `brainstorming`    |
+| Requirements ambiguous                 | Ask targeted questions; optional `extras/product-pack` has brainstorming helpers |
 | Producing `plan.md`                    | `writing-plans`    |
-| Spec artifacts missing/need conversion | `prd` / `prd-task` |
+| Spec artifacts missing/need conversion | Use inline command templates; optional `extras/product-pack` has PRD helpers |
 
 ## Pressure Handling
 

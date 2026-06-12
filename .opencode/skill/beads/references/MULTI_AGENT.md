@@ -1,40 +1,21 @@
-# Multi-Agent Coordination (Swarm Mode)
+# Multi-Agent Beads Coordination
 
-For parallel execution with multiple subagents, use the **swarm-coordination** skill:
+The focused default template keeps Beads as the task-tracking layer and leaves swarm orchestration optional.
 
-```typescript
-skill({ name: "swarm-coordination" });
-```
+For parallel execution with multiple subagents, install `extras/autonomous-pack` and copy its skills/commands into `.opencode/`.
 
-**swarm-coordination** provides (via unified `swarm` tool):
+## Default Beads Responsibilities
 
-- `swarm({ operation: "sync" })` - Sync Beads tasks to OpenCode todos for subagent visibility
-- `swarm({ operation: "monitor" })` - Real-time progress tracking and visualization
-- `swarm({ operation: "plan" })` - Task classification and dependency analysis
-- `swarm({ operation: "delegate" })` - Create delegation packets for workers
+- Track task state (`open`, `in_progress`, `closed`)
+- Record dependencies and blockers
+- Store implementation artifacts under `.beads/artifacts/`
+- Provide resumable handoff state across sessions
 
-**When to use beads vs swarm-coordination:**
+## Optional Autonomous Pack Responsibilities
 
-| Scenario                       | Use                                    |
-| ------------------------------ | -------------------------------------- |
-| Single agent, linear work      | `beads` skill only                     |
-| Multiple agents in parallel    | `swarm-coordination` + `beads`         |
-| Need subagents to see tasks    | `swarm-coordination` (swarm sync push) |
-| Track worker progress visually | `swarm-coordination` (swarm monitor)   |
+After installing `extras/autonomous-pack`, use its swarm coordination workflows for:
 
-**Example swarm workflow:**
-
-```typescript
-// 1. Push beads to OpenCode todos (subagents can see via todoread)
-swarm({ operation: "sync", action: "push" });
-
-// 2. Spawn workers in parallel using Task tool
-Task({ subagent_type: "general", description: "Worker 1", prompt: "..." });
-Task({ subagent_type: "general", description: "Worker 2", prompt: "..." });
-
-// 3. Monitor progress
-swarm({ operation: "monitor", action: "render_block", team_name: "my-swarm" });
-
-// 4. Pull completed work back to beads
-swarm({ operation: "sync", action: "pull" });
-```
+- Parallel worker assignment
+- Worker progress monitoring
+- Multi-agent reconciliation
+- Wave-based execution across independent tasks

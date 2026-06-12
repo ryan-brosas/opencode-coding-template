@@ -208,11 +208,11 @@ Load contextually when needed:
 
 | Work Type              | Skills                                                     |
 | ---------------------- | ---------------------------------------------------------- |
-| Planning artifacts     | `prd-task`, `executing-plans`, `writing-plans`, `prd`      |
+| Planning artifacts     | `executing-plans`, `writing-plans`                         |
 | Debug/bug work         | `systematic-debugging`, `root-cause-tracing`               |
 | Test-heavy work        | `test-driven-development`, `testing-anti-patterns`         |
-| UI work                | `frontend-design`, `react-best-practices`                  |
-| Parallel orchestration | `swarm-coordination`                                       |
+| UI work                | install `extras/ui-pack` first                             |
+| Parallel orchestration | install `extras/autonomous-pack` first                     |
 | Before completion      | `requesting-code-review`, `finishing-a-development-branch` |
 | Codebase exploration   | `code-search-patterns`                                     |
 

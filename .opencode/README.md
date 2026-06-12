@@ -1,6 +1,6 @@
 # OpenCode Template Assets
 
-This directory contains the reusable OpenCode assets that sit beside the root project config.
+This directory contains the focused default OpenCode assets that sit beside the root project config.
 
 > Active config lives at the project root: `opencode.json` and `tui.json`.
 > Keep those root files with `.opencode/` when installing the template.
@@ -10,17 +10,18 @@ This directory contains the reusable OpenCode assets that sit beside the root pr
 ```text
 .opencode/
 ├── AGENTS.md                # Global operating rules for agents
-├── dcp.jsonc                # Optional dynamic context pruning settings
-├── agent/                   # 8 agent prompt files
-├── command/                 # 22 slash command files
-├── skill/                   # Skill library loaded on demand
+├── agent/                   # 6 user-facing core agent prompt files
+├── command/                 # 10 core slash command files
+├── skill/                   # Focused coding/workflow skill baseline
 ├── tool/                    # Custom tools: context7.ts, grepsearch.ts
-├── plugin/                  # Local OpenCode plugins and plugin SDK config
+├── plugin/                  # Core local OpenCode plugins
 ├── memory/                  # Project memory templates and seed files
 ├── context/                 # Prompt-injected context files
 ├── protocols/               # Reusable workflow/protocol docs
 └── plans/                   # Local generated plans; README tracked only
 ```
+
+Optional packs live in root `extras/` and are not loaded unless copied into `.opencode/`. DCP/opencodex plugin config is in `extras/integration-pack/dcp/`.
 
 ## Core Workflow
 
@@ -44,12 +45,14 @@ find .opencode/plugin -maxdepth 1 -name '*.ts' | sort
 find .opencode/tool -maxdepth 1 -name '*.ts' | sort
 ```
 
-Current high-level inventory:
+Current default inventory:
 
-- Agents: build, explore, general, painter, plan, review, scout, vision
-- Commands: create, plan, iterate, verify, ship, review-codebase, status, resume, handoff, pr, plus optional design/research/autonomous helpers
+- Agents: build, explore, general, plan, review, scout (plus config-only compaction summarizer)
+- Commands: create, plan, iterate, verify, ship, review-codebase, status, resume, handoff, pr
 - Custom tools: `context7.ts`, `grepsearch.ts`
-- Local plugins: `copilot-auth.ts`, `memory.ts`, `prompt-leverage.ts`, `rtk.ts`, `sessions.ts`, `skill-mcp.ts`
+- Local plugins: `memory.ts`, `sessions.ts`, `skill-mcp.ts`
+
+Optional UI/design, cloud/vendor, research/context, product/org, language, integration, and autonomous assets live under `extras/`.
 
 ## Tools vs Plugin-Provided Tools
 
@@ -67,7 +70,7 @@ Two plugin sources exist:
 1. **Local plugins** in `.opencode/plugin/*.ts`
 2. **NPM plugins** listed in root `opencode.json` → `plugin`
 
-The template disables NPM plugin auto-install by default (`plugin: []`). Add and pin external plugin versions only after reviewing them.
+The focused default keeps only core local plugins in `.opencode/plugin/`. Optional local plugins live in `extras/integration-pack/plugin/`. NPM plugin auto-install is disabled by default (`plugin: []`). Add and pin external plugin versions only after reviewing them.
 
 See `.opencode/plugin/README.md` for local plugin details.
 

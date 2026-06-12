@@ -17,8 +17,7 @@ Refine a bead's PRD during active implementation. Two-phase process: define what
 ```typescript
 skill({ name: "beads" });
 skill({ name: "memory-grounding" });
-skill({ name: "prd" });
-skill({ name: "prd-task" });
+// Product-pack PRD helpers are optional; use the inline PRD/task format in this command.
 ```
 
 ## Parse Arguments
@@ -141,13 +140,13 @@ Write a change record to `.beads/artifacts/$ARGUMENTS/iterations.md`:
 1. Add new sections/requirements to `prd.md`
 2. Add new tasks at the end of the Tasks section
 3. Mark new tasks with `depends_on` referencing completed tasks if needed
-4. Re-run `prd-task` skill to regenerate `prd.json` with merged task state
+4. Update any generated task summary or optional `prd.json` if the product pack is installed
 
 ### For Reduce:
 
 1. Move removed scope items to "Out-of-Scope" in `prd.md` with note: `[Removed in Iteration N: reason]`
-2. Mark affected tasks by changing their heading from `### Task Title [category]` to `### ~~Task Title~~ [OBSOLETE — Iteration N]` in `prd.md` (don't delete — preserve history). The `prd-task` skill skips headings containing `OBSOLETE` or `INVALIDATED` markers.
-3. Re-run `prd-task` to regenerate `prd.json` (obsolete tasks excluded)
+2. Mark affected tasks by changing their heading from `### Task Title [category]` to `### ~~Task Title~~ [OBSOLETE — Iteration N]` in `prd.md` (don't delete — preserve history).
+3. Update any generated task summary or optional `prd.json` if the product pack is installed
 
 ### For Pivot:
 
@@ -155,7 +154,7 @@ Write a change record to `.beads/artifacts/$ARGUMENTS/iterations.md`:
 2. Rewrite affected sections (Proposed Solution, Requirements, Tasks)
 3. Preserve completed tasks that are still valid
 4. Mark invalidated completed tasks by changing their heading to `### ~~Task Title~~ [INVALIDATED — Iteration N: reason]`
-5. Re-run `prd-task` to regenerate `prd.json`
+5. Update any generated task summary or optional `prd.json` if the product pack is installed
 
 ### Update plan.md (if exists):
 

@@ -18,8 +18,7 @@ Create a bead, write its specification (PRD), claim it, set up the workspace, an
 skill({ name: "beads" });
 skill({ name: "memory-grounding" });
 skill({ name: "workspace-setup" });
-skill({ name: "prd" }); // PRD template guidance
-skill({ name: "prd-task" }); // PRD → executable tasks (Phase 8)
+// Product-pack PRD helpers are optional; this command includes the required PRD/task format inline.
 ```
 
 ## Parse Arguments
@@ -214,7 +213,7 @@ Copy and fill the PRD template (lite or full) using context from Phase 4.
 
 ### Task Format
 
-Tasks must follow the `prd-task` skill format:
+Tasks must follow this portable task format:
 
 - Title with `[category]` tag
 - One-sentence **end state** description (not step-by-step)
@@ -263,15 +262,11 @@ br update $BEAD_ID --status in_progress
 
 Follow the [workspace-setup](../skill/workspace-setup/SKILL.md) skill protocol.
 
-Additionally offer a "Create worktree" option:
+Additionally offer a "Create worktree" option using the `using-git-worktrees` skill if the user wants isolated workspace setup.
 
-```typescript
-skill({ name: "using-git-worktrees" });
-```
+## Phase 10: Prepare Task Summary
 
-## Phase 10: Convert PRD to Tasks
-
-Use `prd-task` skill to convert PRD markdown → executable JSON (`prd.json`).
+Summarize the PRD tasks inline. The optional `extras/product-pack` contains PRD conversion helpers if the user wants generated `prd.json` artifacts.
 
 ## Phase 11: Report
 

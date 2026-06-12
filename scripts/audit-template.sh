@@ -67,6 +67,24 @@ check "no ghost /start references in active workflow docs" bash -c 'paths=(.open
 
 check "generated plan artifacts not tracked" bash -c '! git ls-files ".opencode/plans/*.md" | grep -v "README.md" | grep -q .'
 
+check "focused default counts" bash -c '[ "$(find .opencode/agent -maxdepth 1 -name "*.md" | wc -l | tr -d " ")" = 6 ] && [ "$(find .opencode/command -maxdepth 1 -name "*.md" | wc -l | tr -d " ")" = 10 ] && [ "$(find .opencode/plugin -maxdepth 1 -name "*.ts" | wc -l | tr -d " ")" = 3 ]'
+
+check "optional packs exist" bash -c '[ -d extras/ui-pack ] && [ -d extras/cloud-pack ] && [ -d extras/research-pack ] && [ -d extras/product-pack ] && [ -d extras/autonomous-pack ]'
+
+check "active skill calls resolve" python3 - <<'PY'
+from pathlib import Path
+import re, sys
+missing=[]
+for root in [Path('.opencode/agent'), Path('.opencode/command')]:
+    for path in root.glob('*.md'):
+        for name in re.findall(r'skill\(\{ name: "([^"]+)"', path.read_text()):
+            if not (Path('.opencode/skill') / name).is_dir():
+                missing.append(f'{path}: {name}')
+if missing:
+    print('\n'.join(missing), file=sys.stderr)
+    sys.exit(1)
+PY
+
 printf '\nInventory:\n'
 printf '  agents:   %s\n' "$(find .opencode/agent -maxdepth 1 -name '*.md' | wc -l | tr -d ' ')"
 printf '  commands: %s\n' "$(find .opencode/command -maxdepth 1 -name '*.md' | wc -l | tr -d ' ')"
