@@ -46,11 +46,11 @@ Core fallbacks are always acceptable:
 
 Use advanced search tools only if the project has enabled them:
 
-| Optional Tool         | Use When                              |
-| --------------------- | ------------------------------------- |
-| `lsp`                 | Finding symbol definitions/references |
-| `tilth_tilth_search`  | AST-aware code pattern search         |
-| `codesearch`          | Real-world usage examples             |
+| Optional Tool        | Use When                              |
+| -------------------- | ------------------------------------- |
+| `lsp`                | Finding symbol definitions/references |
+| `tilth_tilth_search` | AST-aware code pattern search         |
+| `codesearch`         | Real-world usage examples             |
 
 ## Phase 1: Gather Context
 
@@ -125,16 +125,15 @@ Include:
 3. Verdict: Ready to merge / With fixes / No
 4. Reasoning (1-2 sentences)
 
-Record significant findings with `observation()`:
+Return significant findings in your report structured for the leader agent to record:
 
-```typescript
-observation({
-  type: "discovery", // or "warning", "pattern", "bugfix"
-  title: "Review: [scope] [key finding]",
-  narrative: "[What was found, severity, file:line, recommended fix]",
-  concepts: "code-review, [category]",
-  confidence: "high",
-});
+```markdown
+**Findings for Recording:**
+
+- **Type:** discovery | warning | pattern | bugfix
+- **Title:** Review: [scope] [key finding]
+- **Narrative:** [What was found, severity, file:line, recommended fix]
+- **Concepts:** code-review, [category]
 ```
 
 ## Related Commands

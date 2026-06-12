@@ -1,6 +1,9 @@
 ---
 name: frontend-implementation-quality
 description: Lightweight frontend engineering quality gates for coding work: semantic HTML, accessibility basics, UI states, responsive behavior, keyboard behavior, forms, tests, and browser smoke checks.
+version: 1.0.0
+tags: [frontend, quality, qa, ui]
+dependencies: []
 ---
 
 # Frontend Implementation Quality

@@ -151,13 +151,13 @@ mkdir -p ".beads/artifacts/$BEAD_ID"
 
 Not every change needs a full spec. Assess complexity to choose the right PRD level:
 
-| Signal | Lite PRD | Full PRD |
-| --- | --- | --- |
-| Type | `bug`, `task` | `feature`, `epic` |
-| Files affected | 1-3 | 4+ |
-| Scope | Clear, single-concern | Cross-cutting, multi-system |
-| Research depth | Skip or Minimal | Standard or Deep |
-| Description | "Fix X in Y" | "Implement X with Y and Z" |
+| Signal         | Lite PRD              | Full PRD                    |
+| -------------- | --------------------- | --------------------------- |
+| Type           | `bug`, `task`         | `feature`, `epic`           |
+| Files affected | 1-3                   | 4+                          |
+| Scope          | Clear, single-concern | Cross-cutting, multi-system |
+| Research depth | Skip or Minimal       | Standard or Deep            |
+| Description    | "Fix X in Y"          | "Implement X with Y and Z"  |
 
 **Auto-detect:** If type is `bug` or `task` AND research was Skip/Minimal AND description is a single sentence → default to Lite.
 
@@ -169,18 +169,23 @@ For simple, well-scoped work (bugs, small tasks):
 # [Title]
 
 ## Problem
+
 [1-2 sentences: what's wrong or what's needed]
 
 ## Solution
+
 [1-2 sentences: what to do]
 
 ## Affected Files
+
 - `src/path/to/file.ts`
 
 ## Tasks
+
 - [ ] [Task description] → Verify: `[command]`
 
 ## Success Criteria
+
 - Verify: `npm run typecheck && npm run lint`
 - Verify: `[specific test or check]`
 ```
@@ -256,8 +261,6 @@ br list --status=in_progress
 br update $BEAD_ID --status in_progress
 ```
 
-### Create Branch
-
 ### Workspace Setup
 
 Follow the [workspace-setup](../skill/workspace-setup/SKILL.md) skill protocol.
@@ -286,8 +289,8 @@ br comments add $BEAD_ID "Created prd.md with [N] tasks, [M] success criteria"
 
 ## Related Commands
 
-| Need               | Command      |
-| ------------------ | ------------ |
+| Need               | Command                                                         |
+| ------------------ | --------------------------------------------------------------- |
 | Research first     | Use `@scout`, or install `extras/research-pack` for `/research` |
-| Plan after spec    | `/plan <id>` |
-| Implement and ship | `/ship <id>` |
+| Plan after spec    | `/plan <id>`                                                    |
+| Implement and ship | `/ship <id>`                                                    |

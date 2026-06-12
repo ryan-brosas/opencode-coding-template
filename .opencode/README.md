@@ -82,11 +82,12 @@ See `.opencode/plugin/README.md` for local plugin details.
 - Prefer read-only commands for exploration; ask before installs, networked MCPs, pushes, or destructive operations.
 - Use `br` commands for multi-session task tracking when Beads is installed.
 
-## Verification Baseline
+## Verification Basic
 
-Use project-specific checks when available:
+Use project-specific checks when available (this template has no npm project by default; downstream projects should use their own):
 
 ```bash
+# For downstream projects using this template:
 npm run typecheck
 npm run lint
 npm run test

@@ -36,10 +36,6 @@
 		"reserved": 16000
 	},
 	"formatter": {
-		"biome": {
-			"command": ["npx", "@biomejs/biome", "check", "--write", "$FILE"],
-			"extensions": [".js", ".jsx", ".ts", ".tsx", ".json", ".jsonc"]
-		},
 		"cargo-fmt": {
 			"command": ["cargo", "fmt", "--", "$FILE"],
 			"extensions": [".rs"]
@@ -50,10 +46,6 @@
 				"JAVA_HOME": "{env:JAVA_HOME}"
 			},
 			"extensions": [".java"]
-		},
-		"laravel-pint": {
-			"command": ["npx", "laravel-pint", "--preset", "psr12", "$FILE"],
-			"extensions": [".php"]
 		},
 		"oxfmt": {
 			"command": ["npx", "oxfmt", "--write", "$FILE"],

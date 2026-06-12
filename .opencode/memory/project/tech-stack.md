@@ -7,45 +7,44 @@ updated: 2026-02-24
 
 This file is automatically injected into ALL AI prompts via `opencode.json` instructions[].
 
-## Framework & Language
+This repository is an **OpenCode configuration template** — it does not contain application code or build tools. The items below describe what projects using this template typically use.
 
-- **Framework:** CLI tool (cac for argument parsing)
-- **Language:** TypeScript (ESNext, strict mode, bundler moduleResolution)
+## This Repository
+
+- **Type:** Configuration template (no application code)
+- **Language:** YAML/JSON/Markdown agent definitions
+- **Task Tracking:** beads_rust (br) — Git-backed task tracking
+- **Template Audit:** `scripts/audit-template.sh`
+
+## Typical Downstream Stack (projects that USE this template)
+
 - **Runtime:** Node.js >= 20.19.0
+- **Language:** TypeScript (ESNext, strict mode)
+- **Lint:** oxlint
+- **Format:** oxfmt
+- **Package Manager:** pnpm (recommended)
 
-## Key Dependencies
+## Key Template Contents
 
-- **CLI Framework:** cac (^6.7.14) - Command-line argument parsing
-- **UI Prompts:** @clack/prompts (^0.7.0) - Interactive CLI prompts
-- **Validation:** zod (^3.25.76) - Schema validation
-- **Task Tracking:** beads-village (^1.3.3) - Git-backed task management
-- **AI SDK:** @ai-sdk/provider (^3.0.6) - AI provider integration
-
-## Build & Tools
-
-- **Build:** tsdown + rsync for template bundling
-- **Lint:** oxlint (^1.38.0) - Fast JavaScript/TypeScript linter
-- **Format:** oxfmt (^0.23.0) - Code formatter
-- **TypeCheck:** tsgo (@typescript/native-preview)
-- **Dev Runner:** tsx - TypeScript execution for development
-
-## Testing
-
-- **Unit Tests:** vitest
-- **Test Location:** src/\*_/_.test.ts (colocated)
-- **Run Single:** vitest src/commands/init.test.ts
+| Component    | Count | Description                                    |
+| ------------ | ----- | ---------------------------------------------- |
+| Agents       | 6     | build, explore, general, plan, review, scout   |
+| Commands     | 10    | /create, /plan, /iterate, /verify, /ship, etc. |
+| Core Skills  | 39    | Reusable skill definitions                     |
+| Plugins      | 3     | memory, sessions, skill-mcp                    |
+| Tools        | 2     | context7, grepsearch                           |
+| Extras Packs | 8     | Optional domain-specific packs                 |
 
 ## Key Constraints
 
-- Node.js >= 20.19.0 required (engines.node in package.json)
-- pnpm for package management
-- Build copies .opencode/ to dist/template/ - don't edit dist/ directly
-- Keep .opencode/ structure minimal and focused
+- Template integrity checked via `scripts/audit-template.sh`
+- Keep `.opencode/` structure minimal and focused
+- Optional packs in `extras/` can be selectively copied into `.opencode/`
 
 ## Active Integrations
 
-- **OpenCode AI:** @opencode-ai/plugin (^1.1.12) - OpenCode integration
-- **Beads CLI:** beads_rust (br) - Task tracking CLI
+- **OpenCode AI:** The template itself — provides agent configs, skills, and commands
+- **Beads CLI:** beads_rust (br) — Task tracking CLI
 
 ---
 

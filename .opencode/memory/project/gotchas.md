@@ -57,9 +57,8 @@ The edit tool (`str_replace`) is the #1 source of failures in LLM coding. Models
 
 ## Build System
 
-- `dist/` is generated - never edit directly
-- Build copies `.opencode/` to `dist/template/` via rsync
-- Run `npm run build` to regenerate
+- This repository is a configuration template — no build system required
+- `scripts/audit-template.sh` validates template integrity
 
 ## Beads
 

@@ -9,6 +9,7 @@ dependencies: []
 # Writing Plans
 
 > **Replaces** vague implementation plans that assume the engineer knows the codebase — produces zero-ambiguity plans with exact file paths and complete code examples
+
 ## When to Use
 
 - Design/PRD is complete and you need a detailed, step-by-step implementation plan
@@ -29,7 +30,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Context:** This should be run in a dedicated worktree (created by brainstorming skill).
 
-**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
+**Save plans to:** `.beads/artifacts/<bead-id>/plan.md`
 
 ## Bite-Sized Task Granularity
 
@@ -48,7 +49,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use skill({ name: "executing-plans" }) to implement this plan task-by-task.
+> **For AI:** REQUIRED SUB-SKILL: Use skill({ name: "executing-plans" }) to implement this plan task-by-task.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -104,19 +105,17 @@ Task C (User API): needs Task A, creates src/api/users.ts
 Wave 1: A, B (parallel)
 Wave 2: C (after Wave 1)
 
-````
-
 ## Tiered Task Hierarchy
 
 For multi-agent execution at scale (10+ agents), use explicit tier declarations. This prevents flat decomposition that fails when many agents work in parallel.
 
 ### Tier Definitions
 
-| Tier | Role | Description | Example |
-|------|------|-------------|---------|
-| **planner** | Lead orchestrator | Analyzes scope, decomposes into sub-tasks, coordinates workers | "Design auth system" |
-| **sub-planner** | Mid-level coordinator | Takes planner output, further decomposes, assigns to workers | "Break auth into API, model, middleware" |
-| **worker** | Execution agent | Executes assigned work, reports progress | "Implement auth service" |
+| Tier            | Role                  | Description                                                    | Example                                  |
+| --------------- | --------------------- | -------------------------------------------------------------- | ---------------------------------------- |
+| **planner**     | Lead orchestrator     | Analyzes scope, decomposes into sub-tasks, coordinates workers | "Design auth system"                     |
+| **sub-planner** | Mid-level coordinator | Takes planner output, further decomposes, assigns to workers   | "Break auth into API, model, middleware" |
+| **worker**      | Execution agent       | Executes assigned work, reports progress                       | "Implement auth service"                 |
 
 ### When to Use Tiers
 
@@ -134,10 +133,11 @@ Add tier metadata to each task:
 **Tier:** planner
 
 **Files:**
+
 - Create: `docs/auth-design.md`
 
 This task decomposes the auth feature into sub-tasks for implementation.
-````
+```
 
 ### Handoff Contracts
 
@@ -215,8 +215,6 @@ Planner → Sub-planner A → Worker 1, 2, 3
 
 This mirrors real engineering orgs: lead → tech lead → IC.
 
-`````
-
 ## Context Budget
 
 Target: ~50% context per plan execution
@@ -253,9 +251,7 @@ Maximum: 2-3 tasks per plan
 def test_specific_behavior():
     result = function(input)
     assert result == expected
-`````
-
-````
+```
 
 **Step 2: Run test to verify it fails**
 
@@ -283,7 +279,11 @@ git commit -m "feat: add specific feature"
 
 ```
 
+```
+````
+
 ## Remember
+
 - Exact file paths always
 - Complete code in plan (not "add validation")
 - Exact commands with expected output
@@ -303,15 +303,15 @@ After saving the plan, offer execution choice:
 **Which approach?"**
 
 **If Subagent-Driven chosen:**
+
 - **Execution guidance:** Use `executing-plans` for default execution; install `extras/autonomous-pack` for subagent-driven development.
 - Stay in this session
 - Fresh subagent per task + code review
 
 **If Parallel Session chosen:**
+
 - Guide them to open new session in worktree
 - **REQUIRED SUB-SKILL:** New session uses skill({ name: "executing-plans" })
-```
-````
 
 ## See Also
 

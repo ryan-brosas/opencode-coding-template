@@ -7,113 +7,63 @@ updated: 2026-02-12
 
 ## Overview
 
-| Phase  | Goal                                              | Status      | Beads |
-| ------ | ------------------------------------------------- | ----------- | ----- |
-| MVP    | Core `ock init` command with basic template       | Complete    | [#]   |
-| Extend | Additional commands (`/ship`, `/plan`, `/resume`) | Complete    | [#]   |
-| Polish | Error handling, docs, validation improvements     | Complete    | [#]   |
-| Scale  | Plugin system, custom templates, advanced config  | In Progress | [#]   |
+| Phase  | Goal                                              | Status      |
+| ------ | ------------------------------------------------- | ----------- |
+| Core   | Template with agents, commands, skills, memory    | Complete    |
+| Polish | Template integrity checks, documentation, cleanup | In Progress |
+| Extend | Optional packs, plugin system, customization      | Planned     |
 
-## Phase 1: MVP
+## Phase 1: Core
 
-**Goal:** Users can run `ock init` to generate a working OpenCode project template.
+**Goal:** A complete, cloneable OpenCode template with all essential files.
 
 **Success Criteria:**
 
-- [x] `ock init` command creates project structure
-- [x] Generated files include AGENTS.md, skills, commands, memory
-- [x] Templates pass typecheck and lint
-- [x] Basic CLI prompts for project configuration
-
-**Beads:**
-
-| ID  | Title             | Type    | Status | Depends On |
-| --- | ----------------- | ------- | ------ | ---------- |
-| -   | Core init command | feature | closed | -          |
-| -   | Template bundling | task    | closed | -          |
-| -   | CLI prompts       | task    | closed | -          |
+- [x] AGENTS.md with global rules for all agents
+- [x] 6 agent definitions with proper tool scoping and permissions
+- [x] 10 slash commands covering creation, planning, iteration, verification, shipping
+- [x] 39 core skills for common coding workflows
+- [x] 3 local plugins (memory, sessions, skill-mcp)
+- [x] 2 custom tools (context7, grepsearch)
+- [x] Integration with beads for task tracking
+- [x] `.env.example` for model configuration
+- [x] Optional packs in `extras/`
 
 **Out of Scope:**
 
-- Advanced customization
-- Plugin system
-- Multiple template options
+- Application code or build tooling
+- Language-specific project templates
 
 ---
 
-## Phase 2: Extend
+## Phase 2: Polish
 
-**Goal:** Add essential OpenCode commands for common workflows.
+**Goal:** Improve template quality, integrity verification, and documentation.
 
 **Success Criteria:**
 
-- [x] `/ship` command for deployment workflows
-- [x] `/plan` command for implementation planning
-- [x] `/resume` command for continuing work
-- [x] `/handoff` command for session handoffs
-- [x] `/status` command for project state
-
-**Beads:**
-
-| ID  | Title           | Type    | Status | Depends On |
-| --- | --------------- | ------- | ------ | ---------- |
-| -   | Ship command    | feature | closed | MVP        |
-| -   | Plan command    | feature | closed | MVP        |
-| -   | Resume command  | feature | closed | MVP        |
-| -   | Handoff command | feature | closed | MVP        |
-| -   | Status command  | feature | closed | MVP        |
+- [x] `scripts/audit-template.sh` for template integrity checks
+- [x] All 8 extras packs documented
+- [ ] Consistent frontmatter across all skill files
+- [ ] Audit: resolve dead config, broken references, stale documentation
+- [ ] Audit: clean up unused model definitions in opencode.json
 
 **Dependencies:**
 
-- Requires MVP completion
+- Requires Core completion
 
 ---
 
-## Phase 3: Polish
+## Phase 3: Extend
 
-**Goal:** Improve quality, documentation, and error handling.
-
-**Success Criteria:**
-
-- [x] Comprehensive error messages with actionable guidance
-- [x] Documentation for all commands
-- [x] Validation scripts for template integrity
-- [x] Improved CLI UX with progress indicators
-
-**Beads:**
-
-| ID  | Title               | Type | Status | Depends On |
-| --- | ------------------- | ---- | ------ | ---------- |
-| -   | Error handling      | task | closed | Extend     |
-| -   | Documentation       | task | closed | Extend     |
-| -   | Validation scripts  | task | closed | Extend     |
-| -   | CLI UX improvements | task | closed | Extend     |
-
-**Dependencies:**
-
-- Requires Extend completion
-
----
-
-## Phase 4: Scale
-
-**Goal:** Add advanced features for power users and customization.
+**Goal:** Add advanced customization, optional pack improvements, and plugin support.
 
 **Success Criteria:**
 
-- [ ] Plugin system for extending CLI functionality
-- [ ] Custom template support (user-defined templates)
-- [ ] Advanced configuration options
-- [ ] Template marketplace or sharing mechanism
-
-**Beads:**
-
-| ID  | Title            | Type    | Status | Depends On    |
-| --- | ---------------- | ------- | ------ | ------------- |
-| -   | Plugin system    | epic    | open   | Polish        |
-| -   | Custom templates | feature | open   | Polish        |
-| -   | Advanced config  | task    | open   | Polish        |
-| -   | Template sharing | epic    | open   | Plugin system |
+- [ ] Plugin system fully documented for custom plugin authors
+- [ ] Optional pack installation guide in each pack README
+- [ ] Template generator or installer script (reduces manual copy steps)
+- [ ] Community contribution guidelines
 
 **Dependencies:**
 
@@ -127,14 +77,11 @@ updated: 2026-02-12
 
 - `Not Started` - No work begun
 - `In Progress` - Active development
-- `Complete` - All beads closed
+- `Complete` - All deliverables met
 
-**Type:**
+---
 
-- `task` - Tactical, single-session work
-- `feature` - New capability, multi-session
-- `epic` - Cross-domain, significant scope
-- `bug` - Fix for broken behavior
+_Update this file when phases complete or roadmap changes._
 
 ---
 
