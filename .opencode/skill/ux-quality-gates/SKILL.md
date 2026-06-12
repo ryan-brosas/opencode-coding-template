@@ -12,7 +12,7 @@ dependencies: []
 
 UX quality is not visual polish. A screen passes only when users can understand scope, complete the primary task, recover from errors, and use it with keyboard/screen reader support.
 
-This skill consolidates high-signal UX review patterns into gates for `/ui-review`, `/plan`, and `/ship`. Optional visual-design commands in `extras/ui-pack` can reuse the same gates.
+This skill consolidates high-signal UX review patterns into gates for `/plan` and `/ship`. Optional visual-design commands in `extras/ui-pack` (such as `/ui-review`) can reuse the same gates.
 
 ## When to Use
 

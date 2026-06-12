@@ -10,9 +10,9 @@ A reusable [OpenCode](https://opencode.ai) project template for AI-assisted soft
 | `tui.json` | TUI keybindings and display settings |
 | `.env.example` | Minimal environment template |
 | `env.integrations.example` | Optional API keys and MCP integrations |
-| `.opencode/agent/` | 7 user-facing core agents: build, plan, explore, review, scout, general, vision (plus config-only compaction summarizer) |
-| `.opencode/command/` | 11 core slash commands for create/plan/iterate/verify/ship/pr plus frontend review |
-| `.opencode/skill/` | Focused coding/frontend/workflow skill baseline |
+| `.opencode/agent/` | 6 user-facing core agents: build, plan, explore, review, scout, general (plus config-only compaction summarizer) |
+| `.opencode/command/` | 10 core slash commands for create/plan/iterate/verify/ship/pr |
+| `.opencode/skill/` | Focused coding/frontend-implementation/workflow skill baseline |
 | `.opencode/plugin/` | Core local plugins: memory, sessions, skill MCP |
 | `.opencode/tool/` | Custom tools: Context7 and grep search |
 | `.beads/` | Beads task-tracking seed/config |
@@ -65,7 +65,7 @@ cp -r extras/ui-pack/skill/* .opencode/skill/ 2>/dev/null || true
 
 Available packs:
 
-- `extras/ui-pack` — optional visual design, Figma, image, browser automation, and mockup workflows
+- `extras/ui-pack` — optional vision/UI review agent, visual design, Figma, image, browser automation, and mockup workflows
 - `extras/cloud-pack` — Cloudflare, Supabase, Resend, Polar, Vercel helpers
 - `extras/research-pack` — deep research, context engineering, Webclaw, prompt leverage
 - `extras/product-pack` — PRD, brainstorming, init/explore/health commands

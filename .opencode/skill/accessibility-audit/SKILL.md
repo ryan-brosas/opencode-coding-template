@@ -187,5 +187,6 @@ Save audit reports to `.opencode/memory/design/accessibility/`
 
 | Need           | Skill             |
 | -------------- | ----------------- |
-| Design quality | `frontend-design` |
+| Frontend implementation quality | `frontend-implementation-quality` |
+| Optional design critique | install `extras/ui-pack` and use `frontend-design` |
 | UI research    | `ui-ux-research`  |

@@ -69,11 +69,11 @@ check "no ghost /start references in active workflow docs" bash -c 'paths=(.open
 
 check "generated plan artifacts not tracked" bash -c '! git ls-files ".opencode/plans/*.md" | grep -v "README.md" | grep -q .'
 
-check "focused default counts" bash -c '[ "$(find .opencode/agent -maxdepth 1 -name "*.md" | wc -l | tr -d " ")" = 7 ] && [ "$(find .opencode/command -maxdepth 1 -name "*.md" | wc -l | tr -d " ")" = 11 ] && [ "$(find .opencode/plugin -maxdepth 1 -name "*.ts" | wc -l | tr -d " ")" = 3 ]'
+check "focused default counts" bash -c '[ "$(find .opencode/agent -maxdepth 1 -name "*.md" | wc -l | tr -d " ")" = 6 ] && [ "$(find .opencode/command -maxdepth 1 -name "*.md" | wc -l | tr -d " ")" = 10 ] && [ "$(find .opencode/plugin -maxdepth 1 -name "*.ts" | wc -l | tr -d " ")" = 3 ]'
 
 check "optional packs exist" bash -c '[ -d extras/ui-pack ] && [ -d extras/cloud-pack ] && [ -d extras/research-pack ] && [ -d extras/product-pack ] && [ -d extras/autonomous-pack ]'
 
-check "optional power workflows are not active by default" bash -c '[ ! -f .opencode/agent/painter.md ] && [ ! -f .opencode/command/lfg.md ] && [ ! -f .opencode/command/compound.md ] && [ ! -f .opencode/plugin/copilot-auth.ts ] && [ ! -f .opencode/plugin/prompt-leverage.ts ] && [ ! -f .opencode/plugin/rtk.ts ]'
+check "optional power workflows are not active by default" bash -c '[ ! -f .opencode/agent/painter.md ] && [ ! -f .opencode/agent/vision.md ] && [ ! -f .opencode/command/ui-review.md ] && [ ! -f .opencode/command/lfg.md ] && [ ! -f .opencode/command/compound.md ] && [ ! -f .opencode/plugin/copilot-auth.ts ] && [ ! -f .opencode/plugin/prompt-leverage.ts ] && [ ! -f .opencode/plugin/rtk.ts ]'
 
 check "no duplicated active files in extras" python3 - <<'PY'
 from pathlib import Path
@@ -111,6 +111,35 @@ for root in [Path('.opencode/agent'), Path('.opencode/command')]:
                 missing.append(f'{path}: {name}')
 if missing:
     print('\n'.join(missing), file=sys.stderr)
+    sys.exit(1)
+PY
+
+check "runtime markdown frontmatter is multiline and parseable" python3 - <<'PY'
+from pathlib import Path
+import sys
+files=[]
+files += list(Path('.opencode/agent').glob('*.md'))
+files += list(Path('.opencode/command').glob('*.md'))
+files += list(Path('.opencode/skill').glob('*/SKILL.md'))
+files += list(Path('extras').glob('**/*.md'))
+bad=[]
+for path in files:
+    lines=path.read_text(errors='ignore').splitlines()
+    if not lines or lines[0].strip() != '---':
+        continue
+    try:
+        close=next(i for i, line in enumerate(lines[1:], 1) if line.strip() == '---')
+    except StopIteration:
+        bad.append(f'{path}: missing closing ---')
+        continue
+    if close == 1:
+        bad.append(f'{path}: empty frontmatter')
+    if path.name == 'SKILL.md' and '.opencode/skill/' in str(path):
+        frontmatter='\n'.join(lines[1:close])
+        if 'name:' not in frontmatter or 'description:' not in frontmatter:
+            bad.append(f'{path}: skill frontmatter missing name/description')
+if bad:
+    print('\n'.join(bad), file=sys.stderr)
     sys.exit(1)
 PY
 

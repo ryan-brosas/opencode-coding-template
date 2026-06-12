@@ -33,13 +33,24 @@ skill({ name: "verification-gates" });
 
 ## Available Tools
 
-| Tool                 | Use When                                |
-| -------------------- | --------------------------------------- |
-| `explore`            | Finding patterns in codebase, prior art |
-| `scout`              | External research, best practices       |
-| `lsp`                | Finding symbol definitions, references  |
-| `tilth_tilth_search` | Finding code patterns                   |
-| `codesearch`         | Real-world usage examples               |
+Core fallbacks are always acceptable:
+
+| Tool/Method | Use When                                |
+| ----------- | --------------------------------------- |
+| `explore`   | Finding patterns in codebase, prior art |
+| `scout`     | External research, best practices       |
+| `rg`        | Text and symbol search                  |
+| `grep`      | Portable text search fallback           |
+| `git grep`  | Search tracked files                    |
+| file reads  | Verify full context before flagging     |
+
+Use advanced search tools only if the project has enabled them:
+
+| Optional Tool         | Use When                              |
+| --------------------- | ------------------------------------- |
+| `lsp`                 | Finding symbol definitions/references |
+| `tilth_tilth_search`  | AST-aware code pattern search         |
+| `codesearch`          | Real-world usage examples             |
 
 ## Phase 1: Gather Context
 

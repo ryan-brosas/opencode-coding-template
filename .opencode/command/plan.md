@@ -20,7 +20,7 @@ Create a detailed implementation plan with TDD steps. Optional deep-planning bet
 skill({ name: "beads" });
 skill({ name: "memory-grounding" });
 skill({ name: "writing-plans" }); // TDD plan format
-// For frontend work, use core `ux-quality-gates` and `accessibility-audit` checks.
+skill({ name: "frontend-implementation-quality" }); // For frontend/UI work
 ```
 
 ## Parse Arguments

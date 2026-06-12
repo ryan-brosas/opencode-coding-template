@@ -236,11 +236,10 @@ Use specialist agents by intent:
 | `@scout`   | External docs/research            |
 | `@review`  | Correctness/security/debug review |
 | `@plan`    | Architecture and execution plans  |
-| `@vision`  | Frontend UI, accessibility, and visual correctness review |
 
-Optional image/design-generation agent `@painter` lives in `extras/ui-pack/agent/` and is not loaded by default.
+Optional visual/design agents such as `@vision` and `@painter` live in `extras/ui-pack/agent/` and are not loaded by default.
 
-**Note:** Frontend implementation/QA is core coding. Figma extraction, image generation, brand direction, PDF extraction, and browser automation helpers live in optional packs.
+**Note:** Frontend implementation/QA is core coding. Figma extraction, image generation, brand direction, specialized visual critique, PDF extraction, and browser automation helpers live in optional packs.
 
 **Parallelism rule**: Use parallel subagents for 3+ independent tasks; otherwise work sequentially.
 
@@ -379,8 +378,8 @@ When user intent is clear, load the appropriate skills:
 | "Debug in browser"                        | Verify         | Install `extras/ui-pack`, then use `chrome-devtools` or `playwright`                             |
 | "Use stable local URLs"                   | Verify         | `portless`                                                                                       |
 | "Write / fix tests"                       | Verify         | `test-driven-development` + `testing-anti-patterns`                                              |
-| "Build frontend / React UI"               | Build          | `frontend-design` + `react-best-practices`                                                       |
-| "Review frontend / accessibility"         | Review         | `ux-quality-gates` + `accessibility-audit` + `@vision`                                           |
+| "Build frontend / React UI"               | Build          | `frontend-implementation-quality` + `react-best-practices`                                       |
+| "Review frontend / accessibility"         | Review         | `frontend-implementation-quality` + `ux-quality-gates` + `accessibility-audit`                   |
 | "Design an API"                           | Build          | `api-and-interface-design` + `documentation-and-adrs`                                            |
 | "Set up CI/CD"                            | Ship           | `ci-cd-and-automation` + `verification-gates`                                                    |
 | "Deprecate / migrate"                     | Ship           | `deprecation-and-migration` + `incremental-implementation`                                       |

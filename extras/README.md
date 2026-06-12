@@ -16,7 +16,7 @@ Review files before installing. Some packs may require optional API keys from `e
 
 ## Packs
 
-- `ui-pack` — optional visual design, Figma, image generation, browser automation, and mockup workflows
+- `ui-pack` — optional vision/UI review agent, visual design, Figma, image generation, browser automation, and mockup workflows
 - `cloud-pack` — Cloudflare, Supabase, Resend, Polar, Vercel helpers
 - `research-pack` — deep research, context engineering, Webclaw, prompt leverage
 - `product-pack` — PRD, brainstorming, init/explore/health commands

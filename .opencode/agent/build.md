@@ -111,7 +111,7 @@ When entering a new task or codebase area:
 - Parallelize discovery: search symbols + grep patterns + read key files simultaneously
 - **Early stop** — once you can name the exact files and symbols to modify, stop exploring
 - Trace only the symbols you'll actually modify; avoid transitive expansion into unrelated code
-- Prefer `tilth --map --scope <dir>` for structural overview, then drill into specific files
+- Use `rg`, `git grep`, and file reads as the core baseline; use optional `tilth --map --scope <dir>` only when Tilth is installed/enabled
 
 ### Quality Bar
 
@@ -211,8 +211,8 @@ Load contextually when needed:
 | Planning artifacts     | `executing-plans`, `writing-plans`                         |
 | Debug/bug work         | `systematic-debugging`, `root-cause-tracing`               |
 | Test-heavy work        | `test-driven-development`, `testing-anti-patterns`         |
-| Frontend/UI coding     | `frontend-design`, `react-best-practices`, `ux-quality-gates`, `accessibility-audit` |
-| Visual/Figma/image work | install `extras/ui-pack` first                            |
+| Frontend/UI coding     | `frontend-implementation-quality`, `react-best-practices`, `ux-quality-gates`, `accessibility-audit` |
+| Visual critique/Figma/image work | install `extras/ui-pack` first                    |
 | Parallel orchestration | install `extras/autonomous-pack` first                     |
 | Before completion      | `requesting-code-review`, `finishing-a-development-branch` |
 | Codebase exploration   | `code-search-patterns`                                     |

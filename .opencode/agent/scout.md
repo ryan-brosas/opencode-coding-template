@@ -121,16 +121,16 @@ If lower-ranked sources conflict with higher-ranked sources, follow higher-ranke
    memory-search({ query: "<topic keywords>", limit: 3 });
    ```
 
-2. If memory is insufficient, choose tools by need:
+2. If memory is insufficient, choose tools by need. Treat advanced web/MCP tools as optional; if unavailable, ask the user or use direct docs they provide.
    | Need | Tool |
    |------|------|
-   | docs/API | `context7`, `codesearch` |
-   | production examples | `grepsearch`, `codesearch` |
-   | latest ecosystem/release info | `websearch` (search), then `webclaw` (`scrape`) for content |
-   | URL content extraction | `webclaw` MCP (`scrape`) — primary; `webfetch` only as fallback |
-   | crawl a doc site | `webclaw` MCP (`crawl`) |
-   | batch multi-URL extraction | `webclaw` MCP (`batch`) |
-   | brand identity from a site | `webclaw` MCP (`brand`) |
+   | docs/API | `context7` if configured; otherwise official docs provided by user |
+   | production examples | `grepsearch` if configured; optional `codesearch` |
+   | latest ecosystem/release info | optional `websearch`, then optional `webclaw` (`scrape`) for content |
+   | URL content extraction | optional `webclaw` MCP (`scrape`); `webfetch` only as fallback if available |
+   | crawl a doc site | optional `webclaw` MCP (`crawl`) |
+   | batch multi-URL extraction | optional `webclaw` MCP (`batch`) |
+   | brand identity from a site | optional `webclaw` MCP (`brand`) |
 
    **Web content priority:** Always try `webclaw` tools first for URL extraction. They handle 403s, bot protection, and produce 67% fewer tokens than raw HTML. Fall back to `webfetch` only if webclaw is unavailable.
 

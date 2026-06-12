@@ -20,7 +20,7 @@ skill({ name: "memory-grounding" });
 skill({ name: "workspace-setup" });
 skill({ name: "verification-before-completion" });
 skill({ name: "reflection-checkpoints" }); // Mid-point + completion checks during execution
-// For frontend work, use core UX/accessibility checks; browser automation remains optional in extras/ui-pack.
+skill({ name: "frontend-implementation-quality" }); // For frontend/UI work
 ```
 
 ## Determine Input Type
@@ -42,13 +42,14 @@ skill({ name: "reflection-checkpoints" }); // Mid-point + completion checks duri
 
 ## Available Tools
 
-| Tool                 | Use When                                  |
+| Tool/Method          | Use When                                  |
 | -------------------- | ----------------------------------------- |
 | `explore`            | Finding patterns in codebase, prior art   |
 | `scout`              | External research, best practices         |
-| `lsp`                | Finding symbol definitions, references    |
-| `tilth_tilth_search` | Finding code patterns                     |
+| `rg` / `git grep`    | Core search fallback                      |
 | `task`               | Spawning subagents for parallel execution |
+| `lsp`                | Optional: symbol definitions/references   |
+| `tilth_tilth_search` | Optional: AST-aware code pattern search   |
 
 ## Phase 1: Guards
 
@@ -248,7 +249,7 @@ git diff --name-only $BASE_SHA...HEAD -- \
 If any UI files changed:
 
 1. Load `skill({ name: "ux-quality-gates" })` and apply the relevant UX/accessibility checks.
-2. Run `/ui-review <changed-ui-path-or-screenshot>` or manually apply its checklist when slash-command invocation is unavailable.
+2. Apply `frontend-implementation-quality`, `ux-quality-gates`, and `accessibility-audit` checklists. If `extras/ui-pack` is installed, `/ui-review <changed-ui-path-or-screenshot>` can provide deeper visual critique.
 3. Verify UX gates for changed surfaces:
    - One primary action per view/section
    - Empty/loading/error/success states for async/data flows

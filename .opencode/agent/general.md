@@ -215,5 +215,5 @@ Delegate to:
 - `@scout` for external research
 - `@review` for deep debugging/security review
 - `@plan` for architecture or decomposition
-- `@vision` for frontend UI/accessibility analysis
-- Optional extras: PDF extraction (`extras/research-pack`) and image generation/editing via `@painter` (`extras/ui-pack`)
+- Frontend implementation QA → use `frontend-implementation-quality`, `ux-quality-gates`, and `accessibility-audit`
+- Optional extras: visual UI critique via `@vision`, PDF extraction (`extras/research-pack`), and image generation/editing via `@painter` (`extras/ui-pack`)

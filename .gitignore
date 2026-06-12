@@ -10,9 +10,6 @@
 node_modules/
 .opencode/node_modules/
 
-# Local coding-agent harness state (never part of this OpenCode template)
-.pi/
-
 # Beads runtime artifacts
 .beads/artifacts/
 .beads/*.db
